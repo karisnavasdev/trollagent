@@ -66,7 +66,7 @@
                                 children: "$TROLL"
                             }), " + ", (0, a.jsx)("strong", {
                                 children: "$TROLLED"
-                            }), " holders. Paste a Solana wallet address below to check holdings."]
+                            }), " holders. Paste a Base wallet address below to check holdings."]
                         }), (null == i ? void 0 : i.hasSnapshot) && (0, a.jsxs)("div", {
                             className: "snapshot-badge",
                             children: [(0, a.jsx)("span", {
@@ -308,20 +308,20 @@
                             })
                         }), (0, a.jsxs)("div", {
                             className: "progress-helper",
-                            children: ["ELIGIBLE" === r.state && "Holding both required tokens. Snapshot will pull this address at airdrop time.", "PRE_LAUNCH_QUALIFIED" === r.state && "$TROLL position confirmed ✓. When $TROLLED launches on pump.fun, buy a position to complete eligibility.", "HALFWAY_NEED_TROLLED" === r.state && "You're holding $TROLL ✓. Buy $TROLLED on pump.fun to qualify for the airdrop. Mutual holders only.", "INELIGIBLE_NO_TROLL" === r.state && "The airdrop is for the OG $TROLL community. No $TROLL holdings at snapshot = no eligibility."]
+                            children: ["ELIGIBLE" === r.state && "Holding both required tokens. Snapshot will pull this address at airdrop time.", "PRE_LAUNCH_QUALIFIED" === r.state && "$TROLL position confirmed ✓. When $TROLLED launches on BASE, buy a position to complete eligibility.", "HALFWAY_NEED_TROLLED" === r.state && "You're holding $TROLL ✓. Buy $TROLLED on BASE to qualify for the airdrop. Mutual holders only.", "INELIGIBLE_NO_TROLL" === r.state && "The airdrop is for the OG $TROLL community. No $TROLL holdings at snapshot = no eligibility."]
                         })]
                     }), (0, a.jsxs)("div", {
                         className: "action-row",
                         children: [(0, a.jsx)("a", {
                             className: "action-btn",
-                            href: "https://solscan.io/account/".concat(r.checkedAddress),
+                            href: "https://SOLSCAN.io/account/".concat(r.checkedAddress),
                             target: "_blank",
                             rel: "noopener noreferrer",
-                            children: "View on Solscan ↗"
+                            children: "View on SOLSCAN ↗"
                         }), ("PRE_LAUNCH_QUALIFIED" === r.state || "HALFWAY_NEED_TROLLED" === r.state) && (0, a.jsx)(i(), {
                             href: "/",
                             className: "action-btn primary",
-                            children: "▶ Buy $TROLLED on pump.fun"
+                            children: "▶ Buy $TROLLED on BASE"
                         }), "INELIGIBLE_NO_TROLL" === r.state && (0, a.jsx)(i(), {
                             href: "/",
                             className: "action-btn",
