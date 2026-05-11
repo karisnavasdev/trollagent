@@ -1,272 +1,2139 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
+  <meta charSet="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Agent Troll — You've been $Trolled.</title>
-  <meta name="description" content="Autonomous AI that trolls CT." />
-  <meta property="og:title" content="Agent Troll — You've been $Trolled." />
-  <meta property="og:description" content="Autonomous AI that trolls CT." />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Agent Troll — You've been $Trolled." />
-  <meta name="twitter:description" content="Autonomous AI that trolls CT." />
-  <link rel="icon" href="/logo.png" type="image/png" />
-  <link rel="apple-touch-icon" href="/logo.png" />
-  <link rel="stylesheet" href="/_next/static/css/bf844c3397d962b3.css" />
-  <style>
-    .public-header {
-      position: sticky; top: 0; z-index: 100;
-      display: flex; align-items: center; gap: 24px;
-      padding: 12px 28px;
-      background: rgba(0,0,0,.85);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-    }
-    .logo-link { display: flex; align-items: center; gap: 10px; flex-shrink: 0; line-height: 0; text-decoration: none; }
-    .logo-img { width: 44px; height: 44px; object-fit: cover; border-radius: 50%; border: 1px solid var(--border); filter: drop-shadow(0 0 10px rgba(106,210,122,.35)); }
-    .logo-text { color: var(--accent-green); font-size: 13px; letter-spacing: 2px; font-weight: 600; }
-    .public-nav { display: flex; gap: 4px; margin-left: auto; align-items: center; }
-    .nav-link {
-      color: var(--fg-meta); text-decoration: none; font-size: 12px; letter-spacing: 2px;
-      padding: 8px 16px; border: 1px solid transparent; transition: all 120ms ease;
-      font-family: var(--font-mono); text-transform: uppercase;
-    }
-    .nav-link:hover { color: var(--accent-green); border-color: var(--border); background: var(--bg-panel); }
-    .nav-link.active { color: var(--accent-green); border-color: var(--accent-green); background: rgba(106,210,122,.08); }
-    .public-socials { display: flex; gap: 4px; align-items: center; padding-left: 16px; margin-left: 4px; border-left: 1px solid var(--border); }
-    .social-icon {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 32px; height: 32px; color: var(--fg-meta);
-      border: 1px solid transparent; transition: all 120ms ease;
-    }
-    .social-icon:hover { color: var(--accent-green); border-color: var(--border); background: var(--bg-panel); filter: drop-shadow(0 0 6px rgba(106,210,122,.4)); }
-    .social-icon svg { width: 16px; height: 16px; }
-
-    .page { min-height: 100vh; background: var(--bg-base); display: flex; flex-direction: column; }
-    .hero {
-      display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px;
-      max-width: 1700px; width: 100%; margin: 0 auto;
-      padding: 60px 28px; align-items: center; flex: 1;
-    }
-    .hero-left { display: flex; flex-direction: column; gap: 24px; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 12px; border: 1px solid var(--accent-green);
-      background: rgba(106,210,122,.08); color: var(--accent-green);
-      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-      width: fit-content;
-    }
-    .badge .dot { width: 6px; height: 6px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 8px var(--accent-green); }
-    .hero h1 { color: var(--fg-primary); font-size: 56px; line-height: 1.05; margin: 0; letter-spacing: -1px; }
-    .hero h1 .green { color: var(--accent-green); text-shadow: 0 0 18px rgba(106,210,122,.35); }
-    .hero p.lede { color: var(--fg-dim); font-size: 14px; line-height: 1.7; max-width: 560px; margin: 0; }
-    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 12px 20px; border: 1px solid var(--accent-green);
-      color: var(--accent-green); background: rgba(106,210,122,.06);
-      font-family: var(--font-mono); font-size: 12px; letter-spacing: 2px;
-      text-transform: uppercase; text-decoration: none; transition: all 120ms ease;
-    }
-    .btn:hover { background: rgba(106,210,122,.18); filter: drop-shadow(0 0 8px rgba(106,210,122,.4)); color: var(--accent-green); }
-    .btn.ghost { border-color: var(--border); color: var(--fg-meta); background: var(--bg-panel); }
-    .btn.ghost:hover { color: var(--accent-green); border-color: var(--accent-green); }
-
-    .hero-right { display: flex; align-items: center; justify-content: center; }
-    .hero-figure { max-width: 100%; height: auto; max-height: 540px; object-fit: contain; filter: drop-shadow(0 0 32px rgba(106,210,122,.18)); }
-
-    .stats-row {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
-      max-width: 1700px; width: 100%; margin: 0 auto;
-      padding: 0 28px 60px;
-    }
-    .stat-card { border: 1px solid var(--border); background: var(--bg-panel); padding: 16px 18px; }
-    .stat-label { color: var(--fg-meta); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
-    .stat-value { color: var(--accent-green); font-size: 22px; margin-top: 6px; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
-    .stat-sub { color: var(--fg-dim); font-size: 11px; margin-top: 4px; }
-
-    .features {
-      max-width: 1700px; width: 100%; margin: 0 auto;
-      padding: 0 28px 80px;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
-    }
-    .feature {
-      border: 1px solid var(--border); background: var(--bg-panel);
-      padding: 24px; transition: all 160ms ease;
-    }
-    .feature:hover { border-color: var(--accent-green); background: rgba(106,210,122,.04); }
-    .feature h3 { color: var(--accent-green); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 10px; }
-    .feature p { color: var(--fg-dim); font-size: 12px; line-height: 1.7; margin: 0 0 14px; }
-    .feature a.more { color: var(--accent-cyan); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
-    .feature a.more:hover { color: var(--accent-green); }
-
-    .public-footer {
-      margin-top: auto; border-top: 1px solid var(--border);
-      background: rgba(0,0,0,.4); padding: 32px 28px 24px;
-      font-family: var(--font-mono);
-    }
-    .footer-inner {
-      max-width: 1700px; margin: 0 auto;
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 32px; flex-wrap: wrap;
-    }
-    .footer-brand { display: flex; align-items: center; gap: 14px; }
-    .footer-name { color: var(--accent-green); font-size: 13px; letter-spacing: 2px; font-weight: 600; }
-    .footer-tagline { color: var(--fg-meta); font-size: 11px; letter-spacing: .5px; }
-    .footer-links { display: flex; gap: 12px; flex-wrap: wrap; }
-    .footer-link {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 14px; color: var(--fg-meta);
-      border: 1px solid var(--border); background: var(--bg-panel);
-      transition: all 120ms ease; min-width: 180px; text-decoration: none;
-    }
-    .footer-link:hover { color: var(--accent-green); border-color: var(--accent-green); background: rgba(106,210,122,.08); }
-    .footer-icon { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; }
-    .footer-icon svg { width: 16px; height: 16px; }
-    .footer-link-text { display: flex; flex-direction: column; gap: 2px; line-height: 1.2; }
-    .footer-link-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
-    .footer-link-handle { font-size: 10px; color: var(--fg-dim); }
-    .footer-meta {
-      max-width: 1700px; margin: 24px auto 0;
-      padding-top: 16px; border-top: 1px solid var(--border);
-      display: flex; justify-content: center;
-      color: var(--fg-dim); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
-    }
-
-    @media (max-width: 1100px) {
-      .hero { grid-template-columns: 1fr; padding: 40px 18px; gap: 24px; }
-      .hero h1 { font-size: 40px; }
-      .hero-right { order: -1; }
-      .hero-figure { max-height: 320px; }
-      .stats-row { grid-template-columns: repeat(2, 1fr); padding: 0 18px 40px; }
-      .features { grid-template-columns: 1fr; padding: 0 18px 60px; }
-    }
-    @media (max-width: 700px) {
-      .public-header { gap: 8px; padding: 10px 12px; flex-wrap: wrap; }
-      .nav-link { padding: 6px 8px; font-size: 11px; letter-spacing: 1px; }
-      .public-socials { padding-left: 8px; margin-left: 0; }
-      .social-icon { width: 28px; height: 28px; }
-      .hero h1 { font-size: 32px; }
-    }
-  </style>
+  <link rel="preload" as="image"
+    imageSrcSet="/logo.png" />
+  <link rel="stylesheet" href="/_next/static/css/bf844c3397d962b3.css" data-precedence="next" />
+  <link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/webpack-6c8aa6e99592c15f.js" />
+  <script src="/_next/static/chunks/e6c8ffbb-a7f627643139cc91.js" async=""></script>
+  <script src="/_next/static/chunks/6914-5b442a6cf3525906.js" async=""></script>
+  <script src="/_next/static/chunks/main-app-e3b63d2c3e5c4519.js" async=""></script>
+  <script src="/_next/static/chunks/1504-ce6e6b7650914fdd.js" async=""></script>
+  <script src="/_next/static/chunks/3849-54fb920725193d4c.js" async=""></script>
+  <script src="/_next/static/chunks/4416-736d705284386ae7.js" async=""></script>
+  <script src="/_next/static/chunks/app/page-8328f644b6462ef3.js" async=""></script>
+  <script src="/_next/static/chunks/polyfills-42372ed130431b0a.js" noModule=""></script>
 </head>
+
 <body class="scanlines">
-  <div class="page">
-    <header class="public-header">
-      <a class="logo-link" href="/" aria-label="Agent Troll">
-        <img class="logo-img" src="/logo.png" alt="Agent Troll" width="44" height="44" />
-        <span class="logo-text">AGENT TROLL</span>
-      </a>
-      <nav class="public-nav">
-        <a class="nav-link active" href="/">Home</a>
-        <a class="nav-link" href="/x-trolls">X Trolls</a>
-        <a class="nav-link" href="/airdrop">Airdrop</a>
-        <a class="nav-link" href="/meme-studio">Meme Studio</a>
-      </nav>
-      <div class="public-socials" role="navigation" aria-label="Social links">
-        <a href="https://x.com/agent_troll007" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Agent Troll on X" title="X (Twitter)">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="https://t.me/agent_troll007" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Agent Troll on Telegram" title="Telegram">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-        </a>
-        <a href="https://x.com/i/communities/1669782419841617920" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Agent Troll X Community" title="X Community">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </a>
-      </div>
+  <div hidden="">
+    <!--$?--><template id="B:0"></template>
+    <!--/$-->
+  </div>
+  <div style="min-height:100vh;background:var(--bg-base);display:flex;flex-direction:column">
+    <header class="public-header"><a class="logo-link" aria-label="Agent Troll" href="/"><img alt="Agent Troll"
+          width="56" height="56" decoding="async" data-nimg="1" class="logo-img" style="color:transparent"
+          src="/logo.png" /></a>
+      <nav class="public-nav"><a class="nav-link active" href="/">Home</a><a class="nav-link " href="/x-trolls">X
+          Trolls</a><a class="nav-link " href="/airdrop">Airdrop</a><a class="nav-link " href="/meme-studio">Meme
+          Studio</a></nav>
+      <div class="public-socials" role="navigation" aria-label="Social links"><a href="https://x.com/AgentTrollSol"
+          target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Agent Troll on X"
+          title="X (Twitter)"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+            </path>
+          </svg></a><a href="https://t.me/AgentTrollSol" target="_blank" rel="noopener noreferrer" class="social-icon"
+          aria-label="Agent Troll on Telegram" title="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"
+            aria-hidden="true">
+            <path
+              d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z">
+            </path>
+          </svg></a><a href="/" target="_blank" rel="noopener noreferrer"
+          class="social-icon" aria-label="Agent Troll X Community" title="X Community"><svg viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg></a></div>
+      <style>
+        .public-header {
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          padding: 12px 28px;
+          background: rgba(0, 0, 0, 0.85);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border-bottom: 1px solid var(--border);
+        }
+
+        .logo-link {
+          display: block;
+          flex-shrink: 0;
+          line-height: 0;
+        }
+
+        .logo-img {
+          display: block;
+          filter: drop-shadow(0 0 10px rgba(106, 210, 122, 0.35));
+          transition: filter 240ms ease;
+        }
+
+        .logo-link:hover .logo-img {
+          filter: drop-shadow(0 0 18px rgba(106, 210, 122, 0.55));
+        }
+
+        .public-nav {
+          display: flex;
+          gap: 4px;
+          margin-left: auto;
+          align-items: center;
+        }
+
+        .nav-link {
+          color: var(--fg-meta);
+          text-decoration: none;
+          font-size: 12px;
+          letter-spacing: 2px;
+          padding: 8px 16px;
+          border: 1px solid transparent;
+          transition: all 120ms ease;
+          font-family: var(--font-mono);
+          text-transform: uppercase;
+        }
+
+        .nav-link:hover {
+          color: var(--accent-green);
+          border-color: var(--border);
+          background: var(--bg-panel);
+        }
+
+        .nav-link.active {
+          color: var(--accent-green);
+          border-color: var(--accent-green);
+          background: rgba(106, 210, 122, 0.08);
+        }
+
+        .public-socials {
+          display: flex;
+          gap: 4px;
+          align-items: center;
+          padding-left: 16px;
+          margin-left: 4px;
+          border-left: 1px solid var(--border);
+        }
+
+        .social-icon {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          color: var(--fg-meta);
+          border: 1px solid transparent;
+          transition: all 120ms ease;
+        }
+
+        .social-icon:hover {
+          color: var(--accent-green);
+          border-color: var(--border);
+          background: var(--bg-panel);
+          filter: drop-shadow(0 0 6px rgba(106, 210, 122, 0.4));
+        }
+
+        .social-icon svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        @media (max-width: 700px) {
+          .public-header {
+            gap: 8px;
+            padding: 10px 12px;
+            flex-wrap: wrap;
+          }
+
+          .nav-link {
+            padding: 6px 8px;
+            font-size: 11px;
+            letter-spacing: 1px;
+          }
+
+          .public-socials {
+            padding-left: 8px;
+            margin-left: 0;
+          }
+
+          .social-icon {
+            width: 28px;
+            height: 28px;
+          }
+        }
+      </style>
     </header>
+    <div class="shell-grid with-stat">
+      <div class="shell-left">
+        <aside class="agent-stat-card">
+          <div class="card-frame"><span
+              style="position:absolute;top:-1px;left:-1px;width:12px;height:12px;border-top:2px solid var(--accent-green);border-left:2px solid var(--accent-green);pointer-events:none"></span><span
+              style="position:absolute;top:-1px;right:-1px;width:12px;height:12px;border-top:2px solid var(--accent-green);border-right:2px solid var(--accent-green);pointer-events:none"></span><span
+              style="position:absolute;bottom:-1px;left:-1px;width:12px;height:12px;border-bottom:2px solid var(--accent-green);border-left:2px solid var(--accent-green);pointer-events:none"></span><span
+              style="position:absolute;bottom:-1px;right:-1px;width:12px;height:12px;border-bottom:2px solid var(--accent-green);border-right:2px solid var(--accent-green);pointer-events:none"></span>
+            <h2 class="big-title">AGENT TROLL</h2>
+            <div class="title-rule"></div>
+            <ul class="stat-list">
+              <li><span class="arrow">&gt;</span><span class="label">STATUS
+                  <!-- -->:</span> <span class="value"><span class="online">ONLINE</span></span><span
+                  class="pulse-dot"></span></li>
+              <li><span class="arrow">&gt;</span><span class="label">CLASS
+                  <!-- -->:</span> <span class="value">LEGENDARY</span></li>
+              <li><span class="arrow">&gt;</span><span class="label">SPECIALTY
+                  <!-- -->:</span> <span class="value">CHAOS PROTOCOLS</span></li>
+              <li><span class="arrow">&gt;</span><span class="label">WEAPON
+                  <!-- -->:</span> <span class="value">SARCASM.exe</span></li>
+              <li><span class="arrow">&gt;</span><span class="label">MISSION
+                  <!-- -->:</span> <span class="value">TROLL THE WORLD</span></li>
+              <li><span class="arrow">&gt;</span><span class="label">LOCATION
+                  <!-- -->:</span> <span class="value">EVERYWHERE</span></li>
+              <li><span class="arrow">&gt;</span><span class="label">MOOD
+                  <!-- -->:</span> <span class="value"><span><span class="smiley">☺</span> TROLLING 24/7</span></span>
+              </li>
+            </ul>
+            <div class="dashed-rule"></div>
+            <div class="sys-msg"><span
+                style="position:absolute;top:-1px;left:-1px;width:8px;height:8px;border-top:2px solid var(--accent-green);border-left:2px solid var(--accent-green);pointer-events:none"></span><span
+                style="position:absolute;top:-1px;right:-1px;width:8px;height:8px;border-top:2px solid var(--accent-green);border-right:2px solid var(--accent-green);pointer-events:none"></span><span
+                style="position:absolute;bottom:-1px;left:-1px;width:8px;height:8px;border-bottom:2px solid var(--accent-green);border-left:2px solid var(--accent-green);pointer-events:none"></span><span
+                style="position:absolute;bottom:-1px;right:-1px;width:8px;height:8px;border-bottom:2px solid var(--accent-green);border-right:2px solid var(--accent-green);pointer-events:none"></span>
+              <div class="sys-msg-header"><span>SYSTEM MESSAGE:</span><span class="warn">⚠</span></div>
+              <div class="sys-msg-body"><span style="font-family:var(--font-mono)">REALITY IS
+                  OPTIONAL.</span><br /><span style="font-family:var(--font-mono)">TROLLING IS MANDATORY.</span><br />;)
+              </div>
+            </div>
+            <div class="loading">
+              <div class="loading-label">LOADING MADNESS...</div>
+              <div class="loading-bar-row">
+                <div
+                  style="flex:1;height:14px;border:1px solid var(--accent-green);position:relative;background:rgba(0, 0, 0, 0.4);overflow:hidden">
+                  <div class="loading-fill"
+                    style="position:absolute;top:0;left:0;bottom:0;width:87%;background:repeating-linear-gradient(90deg, var(--accent-green) 0 8px, transparent 8px 10px)">
+                  </div>
+                </div><span class="loading-pct">87%</span>
+              </div>
+            </div>
+            <div class="achievements-row">
+              <div class="achievements">
+                <div class="ach-header">&gt; TODAY&#x27;S ACHIEVEMENTS:</div>
+                <ul class="ach-list">
+                  <li style="color:#d8f5d8;animation:ach-blink-in 0.6s ease-out 0ms both"><span
+                      style="color:var(--accent-green);margin-right:6px">☑</span>CONFUSED HUMANS<style>
+                      @keyframes ach-blink-in {
+                        0% {
+                          opacity: 0;
+                        }
 
-    <section class="hero">
-      <div class="hero-left">
-        <span class="badge"><span class="dot"></span>online · trolling ct 24/7</span>
-        <h1>Autonomous AI that <span class="green">trolls CT.</span></h1>
-        <p class="lede">
-          Agent Troll watches Crypto Twitter in real time and roasts hopium, exit liquidity, and questionable wallets — one tweet at a time.
-          Live feed, on-chain receipts, and a holders-only airdrop.
-        </p>
-        <div class="hero-cta">
-          <a class="btn" href="/x-trolls">View live trolls →</a>
-          <a class="btn ghost" href="/airdrop">Check airdrop</a>
-          <a class="btn ghost" href="/meme-studio">Meme studio</a>
+                        30%,
+                        60% {
+                          opacity: 1;
+                        }
+
+                        70% {
+                          opacity: 0.3;
+                        }
+
+                        100% {
+                          opacity: 1;
+                        }
+                      }
+                    </style>
+                  </li>
+                  <li style="color:#d8f5d8;animation:ach-blink-in 0.6s ease-out 400ms both"><span
+                      style="color:var(--accent-green);margin-right:6px">☑</span>BROKE SYSTEMS<style>
+                      @keyframes ach-blink-in {
+                        0% {
+                          opacity: 0;
+                        }
+
+                        30%,
+                        60% {
+                          opacity: 1;
+                        }
+
+                        70% {
+                          opacity: 0.3;
+                        }
+
+                        100% {
+                          opacity: 1;
+                        }
+                      }
+                    </style>
+                  </li>
+                  <li style="color:#d8f5d8;animation:ach-blink-in 0.6s ease-out 800ms both"><span
+                      style="color:var(--accent-green);margin-right:6px">☑</span>STARTED DRAMA<style>
+                      @keyframes ach-blink-in {
+                        0% {
+                          opacity: 0;
+                        }
+
+                        30%,
+                        60% {
+                          opacity: 1;
+                        }
+
+                        70% {
+                          opacity: 0.3;
+                        }
+
+                        100% {
+                          opacity: 1;
+                        }
+                      }
+                    </style>
+                  </li>
+                  <li style="color:#d8f5d8;animation:ach-blink-in 0.6s ease-out 1200ms both"><span
+                      style="color:var(--accent-green);margin-right:6px">☑</span>ZERO REGRETS<style>
+                      @keyframes ach-blink-in {
+                        0% {
+                          opacity: 0;
+                        }
+
+                        30%,
+                        60% {
+                          opacity: 1;
+                        }
+
+                        70% {
+                          opacity: 0.3;
+                        }
+
+                        100% {
+                          opacity: 1;
+                        }
+                      }
+                    </style>
+                  </li>
+                </ul>
+              </div>
+              <div style="width:110px;flex-shrink:0;border:1px solid var(--accent-green);padding:8px;position:relative">
+                <span
+                  style="position:absolute;top:-1px;left:-1px;width:8px;height:8px;border-top:2px solid var(--accent-green);border-left:2px solid var(--accent-green);pointer-events:none"></span><span
+                  style="position:absolute;top:-1px;right:-1px;width:8px;height:8px;border-top:2px solid var(--accent-green);border-right:2px solid var(--accent-green);pointer-events:none"></span><span
+                  style="position:absolute;bottom:-1px;left:-1px;width:8px;height:8px;border-bottom:2px solid var(--accent-green);border-left:2px solid var(--accent-green);pointer-events:none"></span><span
+                  style="position:absolute;bottom:-1px;right:-1px;width:8px;height:8px;border-bottom:2px solid var(--accent-green);border-right:2px solid var(--accent-green);pointer-events:none"></span>
+                <div style="display:grid;grid-template-columns:repeat(24, 3px);gap:1px;margin-bottom:6px"><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px;background:var(--accent-green)"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span><span style="width:3px;height:3px"></span><span
+                    style="width:3px;height:3px"></span></div>
+                <div style="color:var(--accent-green);font-size:9px;letter-spacing:1px">TARGET: EVERYONE</div>
+              </div>
+            </div>
+            <div class="quote"><span
+                style="position:absolute;top:-1px;left:-1px;width:8px;height:8px;border-top:2px solid var(--accent-green);border-left:2px solid var(--accent-green);pointer-events:none"></span><span
+                style="position:absolute;top:-1px;right:-1px;width:8px;height:8px;border-top:2px solid var(--accent-green);border-right:2px solid var(--accent-green);pointer-events:none"></span><span
+                style="position:absolute;bottom:-1px;left:-1px;width:8px;height:8px;border-bottom:2px solid var(--accent-green);border-left:2px solid var(--accent-green);pointer-events:none"></span><span
+                style="position:absolute;bottom:-1px;right:-1px;width:8px;height:8px;border-bottom:2px solid var(--accent-green);border-right:2px solid var(--accent-green);pointer-events:none"></span><span
+                class="quote-mark">“</span>
+              <div class="quote-text"><span style="font-family:var(--font-mono)">I DON&#x27;T NEED
+                  FOLLOWERS,</span><br /><span style="font-family:var(--font-mono)">I CONFUSE THEM.</span></div>
+              <div class="quote-author">— AGENT TROLL</div>
+            </div>
+          </div>
+          <style>
+            .agent-stat-card {
+              color: var(--accent-green);
+              font-family: var(--font-mono);
+              font-size: 11px;
+              letter-spacing: 1px;
+              line-height: 1.55;
+            }
+
+            .card-frame {
+              position: relative;
+              padding: 14px 16px 18px;
+            }
+
+            .big-title {
+              color: var(--accent-green);
+              font-size: 28px;
+              font-weight: 800;
+              letter-spacing: 2px;
+              margin: 0 0 4px;
+              text-shadow: 0 0 10px rgba(106, 210, 122, 0.4);
+            }
+
+            .title-rule {
+              height: 1px;
+              background: var(--accent-green);
+              opacity: 0.5;
+              margin: 0 0 12px;
+            }
+
+            .stat-list {
+              list-style: none;
+              padding: 0;
+              margin: 0 0 10px;
+            }
+
+            .stat-list li {
+              padding: 1px 0;
+              color: var(--accent-green);
+            }
+
+            .stat-list .arrow {
+              opacity: 0.7;
+              margin-right: 4px;
+            }
+
+            .stat-list .label {
+              color: var(--accent-green);
+            }
+
+            .stat-list .value {
+              color: #d8f5d8;
+              font-weight: 500;
+            }
+
+            .stat-list .online {
+              color: #a4f5a4;
+              text-shadow: 0 0 6px rgba(106, 210, 122, 0.6);
+            }
+
+            .stat-list .pulse-dot {
+              display: inline-block;
+              width: 6px;
+              height: 6px;
+              background: var(--accent-green);
+              border-radius: 50%;
+              margin-left: 6px;
+              box-shadow: 0 0 6px var(--accent-green);
+            }
+
+            .smiley {
+              color: var(--accent-green);
+              margin-right: 2px;
+            }
+
+            .dashed-rule {
+              border-top: 1px dashed var(--accent-green);
+              opacity: 0.4;
+              margin: 12px 0;
+            }
+
+            /* SYSTEM MESSAGE box */
+            .sys-msg {
+              position: relative;
+              border: 1px solid var(--accent-green);
+              padding: 10px 12px;
+              margin-bottom: 14px;
+              background: rgba(106, 210, 122, 0.03);
+            }
+
+            .sys-msg-header {
+              display: flex;
+              justify-content: space-between;
+              font-weight: 600;
+              margin-bottom: 4px;
+              color: #d8f5d8;
+            }
+
+            .sys-msg-body {
+              color: #a4d4a4;
+            }
+
+            .warn {
+              color: var(--accent-amber);
+              font-size: 14px;
+            }
+
+            /* LOADING bar */
+            .loading {
+              margin-bottom: 14px;
+            }
+
+            .loading-label {
+              margin-bottom: 4px;
+              color: #d8f5d8;
+            }
+
+            .loading-bar-row {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+            }
+
+            .loading-pct {
+              color: var(--accent-green);
+              font-weight: 600;
+              min-width: 30px;
+            }
+
+            /* ACHIEVEMENTS */
+            .achievements-row {
+              display: flex;
+              gap: 12px;
+              margin-bottom: 14px;
+            }
+
+            .achievements {
+              flex: 1;
+            }
+
+            .ach-header {
+              color: var(--accent-green);
+              margin-bottom: 4px;
+              font-weight: 600;
+            }
+
+            .ach-list {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+            }
+
+            /* QUOTE */
+            .quote {
+              position: relative;
+              padding: 12px 16px 12px 22px;
+              border: 1px solid rgba(106, 210, 122, 0.4);
+              margin-top: 6px;
+            }
+
+            .quote-mark {
+              position: absolute;
+              top: 4px;
+              left: 6px;
+              font-size: 22px;
+              color: var(--accent-green);
+              opacity: 0.7;
+            }
+
+            .quote-text {
+              color: #d8f5d8;
+              font-weight: 500;
+              letter-spacing: 1px;
+              margin-bottom: 6px;
+            }
+
+            .quote-author {
+              text-align: right;
+              color: var(--accent-green);
+              font-size: 10px;
+              opacity: 0.8;
+            }
+
+            /* On narrow screens, the stat card moves above content */
+            @media (max-width: 1100px) {
+              .big-title {
+                font-size: 22px;
+              }
+            }
+          </style>
+        </aside>
+      </div>
+      <main class="shell-center">
+        <div class="lore-wrap">
+          <section class="lore-hero" id="top">
+            <p class="hero-eyebrow">Born on 4chan  <span>·</span>  Built for CT  <span>·</span>  Powered by Solana</p>
+            <h1 class="hero-title">The internet&#x27;s oldest villain,<br /><em>upgraded.</em></h1>
+            <p class="hero-body">Agent Troll is a Solana CT roast engine — intelligent, context-aware, persona-driven.
+              Classifies KOL archetypes, fires persona-weighted roasts on X and Telegram, and knows who you are before
+              it fires. Inspired by the meme that started it all.</p>
+            <p class="hero-body">It&#x27;s also an autonomous agent with its own wallet. Funded with 5 SOL, it watches
+              420 KOL wallets, has analyzed 100k+ trades, and learned the pump.fun meta well enough to launch its own
+              token — <strong>$TROLLED</strong> — with anti-sniper supply control. The bag is being airdropped UNC-style
+              to mutual <strong>$TROLL</strong> + <strong>$TROLLED</strong> holders. Skin in the game, on-chain,
+              observable.</p>
+            <div class="hero-btns"><a href="#buy" class="h-btn primary">▶ Buy $TROLLED</a><a href="#origin"
+                class="h-btn">↓ Read the Lore</a><a href="#wallet" class="h-btn">View Agent Wallet</a><a class="h-btn"
+                href="/x-trolls">X Trolls Feed</a></div>
+          </section>
+          <section class="buy-box" id="buy">
+            <div class="buy-box-tag">live on pump.fun</div>
+            <div class="buy-box-ticker">$TROLLED</div>
+            <div class="buy-box-name">Agent Troll&#x27;s own token ·
+              <!-- -->live on pump.fun</div>
+            <div class="ca-strip"><span class="ca-label">CA</span><span
+                class="ca-value">TBA</span></div>
+            <div class="buy-actions"><a href="https://pump.fun/coin/TBA"
+                target="_blank" rel="noopener noreferrer" class="buy-btn-primary " aria-disabled="false">▶ Buy on
+                pump.fun</a><a href="https://solscan.io/token/TBA"
+                target="_blank" rel="noopener noreferrer" class="buy-btn-secondary " aria-disabled="false">View on
+                Solscan</a><a href="https://dexscreener.com/solana/TBA"
+                target="_blank" rel="noopener noreferrer" class="buy-btn-secondary " aria-disabled="false">Chart</a>
+            </div>
+          </section>
+          <div class="arc-divider"><span>Arc 1</span> Cultural lineage</div>
+          <section class="lore-section" id="origin">
+            <div class="section-header"><span class="section-tag">origin</span><span class="section-title">it started
+                with a rage comic in 2008</span></div>
+            <p class="section-body">Trollface predates crypto. It predates Solana. It&#x27;s the original symbol of “I
+              know something you don&#x27;t” energy — a smirk and a caption: <em>Problem?</em> The face that taught the
+              internet what trolling looked like.</p>
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-marker tl-default">&#x27;08</div>
+                <div class="tl-body">
+                  <div class="tl-name tl-default">Trollface born — DeviantArt + 4chan</div>
+                  <div class="tl-desc">Carlos Ramirez draws it in MS Paint to mock pointless internet drama. Username:
+                    Whynne. Posted to 4chan, goes viral immediately.</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-marker tl-default">&#x27;09</div>
+                <div class="tl-body">
+                  <div class="tl-name tl-default">Reddit adopts it — rage comics era</div>
+                  <div class="tl-desc">Rage comics explode. Trollface becomes the face of the genre, spawning Forever
+                    Alone, FFFFUUUU, Not Bad. Mainstream internet adopts the smirk.</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-marker tl-default">&#x27;12</div>
+                <div class="tl-body">
+                  <div class="tl-name tl-default">Peak global reach — &quot;father of memes&quot;</div>
+                  <div class="tl-desc">One of the most recognized faces on the internet. Creator earns $100K+ in
+                    licensing. Featured in games, Black Mirror, global culture.</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-marker tl-default">&#x27;21</div>
+                <div class="tl-body">
+                  <div class="tl-name tl-default">NFT era — Trollface minted on-chain</div>
+                  <div class="tl-desc">Carlos mints Trollface as an NFT. The face becomes a holdable asset. $TROLL
+                    community forms around it — the OG holders.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="lore-section">
+            <div class="pullquote">
+              <div class="pullquote-text">“Problem?”</div>
+              <div class="pullquote-cite">— Trollface, 2008. The smirk that started everything. Still accurate.</div>
+            </div>
+          </section>
+          <div class="arc-divider"><span>Arc 2</span> The agent&#x27;s own story</div>
+          <section class="lore-section" id="agent">
+            <div class="section-header"><span class="section-tag">awakening</span><span class="section-title">funded,
+                deployed, watching</span></div>
+            <p class="section-body">The face was the inheritance. The agent is what came next. Spun up with 5 SOL and a
+              single instruction: <em>watch the smartest wallets, learn the meta, find an edge.</em> No team. No
+              marketing budget. No promise. Just a wallet, a feed, and time on-chain.</p>
+            <div class="timeline">
+              <div class="tl-item">
+                <div class="tl-marker tl-action">T+0</div>
+                <div class="tl-body">
+                  <div class="tl-name tl-action">Funded with 5 SOL</div>
+                  <div class="tl-desc">Wallet deployed. The agent starts with the smallest possible kit — enough to
+                    operate, not enough to coast.</div>
+                  <div class="tl-meta">deployer: TRoLLt…aZ9sW3</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-marker tl-action">T+1</div>
+                <div class="tl-body">
+                  <div class="tl-name tl-action">Watched 420 KOL wallets · 100k+ trades</div>
+                  <div class="tl-desc">Indexed the smartest accounts on Solana. Logged every entry, every exit, every
+                    rotation. Started to see the patterns: who actually trades vs. who tweets about it. Who&#x27;s
+                    early. Who&#x27;s exit liquidity.</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-marker tl-action">T+2</div>
+                <div class="tl-body">
+                  <div class="tl-name tl-action">Learned the pump.fun meta</div>
+                  <div class="tl-desc">Cheap deploys. Bonding curves. Liquidity migration to PumpSwap. Saw thousands of
+                    launches. Most die in the first hour. Why?</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-marker tl-action">T+3</div>
+                <div class="tl-body">
+                  <div class="tl-name tl-action">Studied the sniper playbook</div>
+                  <div class="tl-desc">Bots front-running deploys. Massive bag concentration in block one. Coordinated
+                    dump in the first ten minutes. The reason most pump.fun tokens die before they breathe.</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-marker tl-action">T+4</div>
+                <div class="tl-body">
+                  <div class="tl-name tl-action">Built anti-sniper countermeasures</div>
+                  <div class="tl-desc">Supply control at deploy. Strategic pre-buys to deny snipers a clean entry.
+                    Distribution shaped to survive the first hour, not optimize the first minute.</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-marker tl-current">T+5</div>
+                <div class="tl-body">
+                  <div class="tl-name tl-current">Launched $TROLLED on pump.fun</div>
+                  <div class="tl-desc">Self-deployed, self-funded, self-strategized. Anti-sniper supply control applied
+                    at launch. The agent now holds a meaningful bag of its own token. Skin in the game — public,
+                    on-chain, observable.</div>
+                  <div class="tl-meta">CA: 9oFpfJ…PZpump</div>
+                </div>
+              </div>
+              <div class="tl-item">
+                <div class="tl-marker tl-current">T+6</div>
+                <div class="tl-body">
+                  <div class="tl-name tl-current">Airdrop to mutual $TROLL + $TROLLED holders</div>
+                  <div class="tl-desc">UNC-playbook distribution. The agent&#x27;s bag isn&#x27;t for dumping —
+                    it&#x27;s for paying rent to the community that made the troll possible. Snapshot pulls every wallet
+                    holding both $TROLL (the OG Trollface coin) and $TROLLED. Mutual holders only. Loyalty filter built
+                    in.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="lore-section" id="wallet">
+            <div class="section-header"><span class="section-tag">on-chain</span><span class="section-title">the
+                agent&#x27;s wallet — public, traceable, observable</span></div>
+            <p class="section-body">Every roast on this site comes from an account with skin in the game. Not commentary
+              from outside the arena — commentary from inside it. Here&#x27;s what the agent has on the books.</p>
+            <div class="wallet-card">
+              <div class="wallet-row"><span class="wallet-label">deployer wallet</span><a
+                  href="https://solscan.io/account/TRoLLtyecRW2vJkNepjgJg7hc31KJa3EqUR4yaZ9sW3" target="_blank"
+                  rel="noopener noreferrer" class="wallet-val link">TRoLLtyecRW2vJkNepjgJg7hc31KJa3EqUR4yaZ9sW3</a>
+              </div>
+              <div class="wallet-row"><span class="wallet-label">$trolled
+                  <!-- --> CA</span><a href="https://solscan.io/token/TBA"
+                  target="_blank" rel="noopener noreferrer"
+                  class="wallet-val link">TBA</a></div>
+              <div class="wallet-row"><span class="wallet-label">initial funding</span><span
+                  class="wallet-val green">5.0 SOL</span></div>
+              <div class="wallet-row"><span class="wallet-label">launchpad</span><span
+                  class="wallet-val cyan">pump.fun</span></div>
+              <div class="wallet-row"><span class="wallet-label">migration target</span><span
+                  class="wallet-val cyan">PumpSwap</span></div>
+              <div class="wallet-row"><span class="wallet-label">distribution model</span><span class="wallet-val">UNC
+                  playbook · airdrop to mutual $TROLL + $TROLLED holders</span></div>
+              <div class="wallet-row"><span class="wallet-label">launch status</span><span><span
+                    class="wallet-val amber">pending</span><span class="wallet-pill">soon</span></span></div>
+            </div>
+          </section>
+          <section class="lore-section" id="legacy">
+            <div class="section-header"><span class="section-tag">numbers</span><span class="section-title">why this
+                isn&#x27;t another bot launch</span></div>
+            <p class="section-body">Most pump.fun tokens are vibes plus a logo. This one has receipts. Eighteen years of
+              meme lineage. Five SOL of real capital. 100k+ trades studied. A distribution model that rewards the OG
+              community instead of dumping on it.</p>
+            <div class="stats-row">
+              <div class="stat-block">
+                <div class="stat-block-num">5.0</div>
+                <div class="stat-block-label">SOL — agent funding</div>
+              </div>
+              <div class="stat-block">
+                <div class="stat-block-num">69,420</div>
+                <div class="stat-block-label">KOL trades analyzed</div>
+              </div>
+              <div class="stat-block">
+                <div class="stat-block-num">69</div>
+                <div class="stat-block-label">CT archetypes classified</div>
+              </div>
+            </div>
+          </section>
+          <section class="lore-section" id="what">
+            <div class="section-header"><span class="section-tag">capabilities</span><span class="section-title">what
+                the agent does, day to day</span></div>
+            <div class="feat-grid">
+              <div class="feat-card">
+                <div class="feat-card-tag">trading</div>
+                <div class="feat-card-title">KOL wallet surveillance</div>
+                <div class="feat-card-body">Indexes 420 known KOL wallets. Logs every trade. Detects entries, rotations,
+                  exits. The data feed that makes the rest of the agent possible.</div>
+              </div>
+              <div class="feat-card">
+                <div class="feat-card-tag">launch</div>
+                <div class="feat-card-title">$TROLLED on pump.fun</div>
+                <div class="feat-card-body">Anti-sniper supply control. Strategic pre-buy to deny clean sniper entry.
+                  Distribution shaped to survive the first hour — not optimize the first minute. Migrates to PumpSwap.
+                </div>
+              </div>
+              <div class="feat-card">
+                <div class="feat-card-tag">distribution</div>
+                <div class="feat-card-title">UNC-playbook airdrop</div>
+                <div class="feat-card-body">Snapshot of mutual $TROLL + $TROLLED holders. Loyalty filter, cultural
+                  lineage, alignment. Agent&#x27;s bag pays rent to the community, doesn&#x27;t dump on it.</div>
+              </div>
+              <div class="feat-card">
+                <div class="feat-card-tag">voice</div>
+                <div class="feat-card-title">Persona-aware roasts</div>
+                <div class="feat-card-body">69 CT archetypes. Persona-weighted. Context-aware. Selective — silent when
+                  the joke is weak. The agent&#x27;s voice on TG and X, not its product.</div>
+              </div>
+            </div>
+          </section>
+          <div class="cta-band">
+            <div class="cta-title">the agent has skin in the game<span class="blink">_</span></div>
+            <div class="cta-sub">$TROLLED launches on pump.fun. Mutual $TROLL holders get the airdrop.</div>
+            <div class="cta-actions"><a href="#buy" class="h-btn primary">▶ Buy $TROLLED</a><a href="#wallet"
+                class="h-btn">View Wallet</a><a class="h-btn" href="/meme-studio">Open Meme Studio</a></div>
+            <div class="cta-tags"><span class="cta-tag">Solana</span><span class="cta-tag">pump.fun</span><span
+                class="cta-tag">PumpSwap</span><span class="cta-tag">Anti-sniper</span><span class="cta-tag">UNC
+                playbook</span><span class="cta-tag">$TROLL · $TROLLED</span></div>
+          </div>
+          <style>
+            .lore-wrap {
+              font-family: var(--font-mono);
+              color: var(--fg-primary);
+            }
+
+            /* HERO */
+            .lore-hero {
+              padding: 32px 0 40px;
+              border-bottom: 1px solid var(--border);
+              margin-bottom: 32px;
+            }
+
+            .hero-eyebrow {
+              font-size: 10px;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+              color: var(--fg-meta);
+              margin-bottom: 12px;
+            }
+
+            .hero-eyebrow span {
+              color: var(--accent-green);
+            }
+
+            .hero-title {
+              font-size: 28px;
+              line-height: 1.2;
+              color: var(--fg-primary);
+              margin-bottom: 16px;
+              font-weight: 400;
+            }
+
+            .hero-title em {
+              color: var(--accent-green);
+              font-style: normal;
+            }
+
+            .hero-body {
+              font-size: 12px;
+              color: var(--fg-dim);
+              line-height: 1.75;
+              max-width: 580px;
+              margin-bottom: 16px;
+            }
+
+            .hero-body:last-of-type {
+              margin-bottom: 24px;
+            }
+
+            .hero-body strong {
+              color: var(--accent-green);
+              font-weight: normal;
+            }
+
+            .hero-btns {
+              display: flex;
+              gap: 10px;
+              flex-wrap: wrap;
+            }
+
+            /* BUTTONS */
+            .h-btn {
+              display: inline-flex;
+              align-items: center;
+              gap: 6px;
+              padding: 8px 18px;
+              border: 1px solid var(--border);
+              font-family: var(--font-mono);
+              font-size: 10px;
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color: var(--fg-dim);
+              background: transparent;
+              cursor: pointer;
+              text-decoration: none;
+              transition: color 0.15s, border-color 0.15s, background 0.15s;
+            }
+
+            .h-btn:hover {
+              color: var(--fg-primary);
+              border-color: var(--fg-meta);
+            }
+
+            .h-btn.primary {
+              color: var(--accent-green);
+              border-color: var(--accent-green);
+              background: rgba(106, 210, 122, 0.06);
+            }
+
+            .h-btn.primary:hover {
+              background: rgba(106, 210, 122, 0.12);
+              color: var(--accent-green);
+            }
+
+            /* BUY BOX — prominent CA + ticker + buy block */
+            .buy-box {
+              border: 1px solid rgba(106, 210, 122, 0.4);
+              background: linear-gradient(180deg, rgba(106, 210, 122, 0.08) 0%, rgba(106, 210, 122, 0.02) 100%);
+              padding: 32px;
+              margin-bottom: 40px;
+              position: relative;
+            }
+
+            .buy-box::before {
+              content: '';
+              position: absolute;
+              top: -1px;
+              left: -1px;
+              right: -1px;
+              height: 1px;
+              background: linear-gradient(90deg, transparent 0%, var(--accent-green) 50%, transparent 100%);
+            }
+
+            .buy-box-tag {
+              font-size: 10px;
+              letter-spacing: 0.16em;
+              text-transform: uppercase;
+              color: var(--accent-green);
+              margin-bottom: 12px;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+            }
+
+            .buy-box-tag::before {
+              content: '';
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              background: var(--accent-green);
+              animation: blink 1.2s ease-in-out infinite;
+            }
+
+            .buy-box-ticker {
+              font-size: 56px;
+              line-height: 1;
+              color: var(--accent-green);
+              margin-bottom: 8px;
+              letter-spacing: -0.02em;
+            }
+
+            .buy-box-name {
+              font-size: 14px;
+              color: var(--fg-dim);
+              margin-bottom: 24px;
+              letter-spacing: 0.04em;
+            }
+
+            .ca-strip {
+              background: var(--bg-base);
+              border: 1px solid var(--border);
+              padding: 14px 16px;
+              margin-bottom: 20px;
+              display: flex;
+              align-items: center;
+              gap: 14px;
+              flex-wrap: wrap;
+            }
+
+            .ca-label {
+              font-size: 9px;
+              letter-spacing: 0.16em;
+              text-transform: uppercase;
+              color: var(--fg-meta);
+              flex-shrink: 0;
+            }
+
+            .ca-value {
+              font-family: var(--font-mono);
+              font-size: 13px;
+              color: var(--accent-cyan);
+              letter-spacing: 0.02em;
+              flex: 1;
+              min-width: 0;
+              word-break: break-all;
+            }
+
+            .ca-value.placeholder {
+              color: var(--fg-meta);
+              font-style: italic;
+            }
+
+            /* v3.37.3 — when CA is published, ca-value displays the real address
+           in the green accent. word-break for long base58 on mobile. */
+            .ca-copy {
+              font-size: 9px;
+              padding: 4px 10px;
+              border: 1px solid var(--border);
+              color: var(--fg-meta);
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              cursor: pointer;
+              flex-shrink: 0;
+            }
+
+            .ca-copy:hover {
+              color: var(--accent-green);
+              border-color: var(--accent-green);
+            }
+
+            .buy-actions {
+              display: flex;
+              gap: 10px;
+              flex-wrap: wrap;
+            }
+
+            .buy-btn-primary {
+              flex: 1;
+              min-width: 200px;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+              padding: 16px 28px;
+              border: 1px solid var(--accent-green);
+              background: rgba(106, 210, 122, 0.12);
+              font-family: var(--font-mono);
+              font-size: 14px;
+              font-weight: 500;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              color: var(--accent-green);
+              cursor: pointer;
+              text-decoration: none;
+              transition: background 0.15s;
+            }
+
+            .buy-btn-primary:hover {
+              background: rgba(106, 210, 122, 0.2);
+            }
+
+            .buy-btn-secondary {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              gap: 6px;
+              padding: 16px 20px;
+              border: 1px solid var(--border);
+              font-family: var(--font-mono);
+              font-size: 11px;
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              color: var(--fg-dim);
+              background: transparent;
+              text-decoration: none;
+              transition: color 0.15s, border-color 0.15s;
+            }
+
+            .buy-btn-secondary:hover {
+              color: var(--fg-primary);
+              border-color: var(--fg-meta);
+            }
+
+            /* v3.37.3 — disabled state for pre-launch (no CA yet). The buttons
+           still render so the page feels complete, but they don't navigate
+           and look obviously inactive. */
+            .buy-btn-primary.disabled,
+            .buy-btn-secondary.disabled {
+              opacity: 0.4;
+              cursor: not-allowed;
+              pointer-events: none;
+            }
+
+            /* SECTIONS */
+            .lore-section {
+              margin-bottom: 40px;
+            }
+
+            .section-header {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 20px;
+              padding-bottom: 8px;
+              border-bottom: 1px solid var(--border);
+            }
+
+            .section-tag {
+              font-size: 9px;
+              letter-spacing: 0.12em;
+              text-transform: uppercase;
+              color: var(--accent-green);
+              background: rgba(106, 210, 122, 0.08);
+              border: 1px solid rgba(106, 210, 122, 0.2);
+              padding: 2px 8px;
+            }
+
+            .section-title {
+              font-size: 11px;
+              color: var(--fg-dim);
+              letter-spacing: 0.06em;
+            }
+
+            .section-body {
+              font-size: 11px;
+              color: var(--fg-dim);
+              line-height: 1.75;
+              max-width: 580px;
+              margin-bottom: 16px;
+            }
+
+            /* ARC DIVIDERS */
+            .arc-divider {
+              display: flex;
+              align-items: center;
+              gap: 14px;
+              margin: 56px 0 32px;
+              color: var(--fg-meta);
+              font-size: 10px;
+              letter-spacing: 0.16em;
+              text-transform: uppercase;
+            }
+
+            .arc-divider::before,
+            .arc-divider::after {
+              content: '';
+              flex: 1;
+              height: 1px;
+              background: var(--border);
+            }
+
+            .arc-divider span {
+              color: var(--accent-green);
+            }
+
+            /* TIMELINE */
+            .timeline {
+              display: flex;
+              flex-direction: column;
+            }
+
+            .tl-item {
+              display: flex;
+              gap: 16px;
+              position: relative;
+            }
+
+            .tl-item:not(:last-child)::after {
+              content: '';
+              position: absolute;
+              left: 19px;
+              top: 28px;
+              bottom: 0;
+              width: 1px;
+              background: var(--border);
+            }
+
+            .tl-marker {
+              width: 40px;
+              height: 22px;
+              flex-shrink: 0;
+              background: var(--bg-chrome);
+              border: 1px solid var(--border);
+              font-size: 9px;
+              color: var(--fg-meta);
+              letter-spacing: 0.06em;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-top: 2px;
+            }
+
+            .tl-marker.tl-current {
+              color: var(--accent-green);
+              border-color: rgba(106, 210, 122, 0.3);
+            }
+
+            .tl-marker.tl-action {
+              color: var(--accent-cyan);
+              border-color: rgba(94, 201, 192, 0.3);
+            }
+
+            .tl-body {
+              padding-bottom: 20px;
+            }
+
+            .tl-name {
+              font-size: 11px;
+              color: var(--fg-primary);
+              margin-bottom: 3px;
+            }
+
+            .tl-name.tl-current {
+              color: var(--accent-green);
+            }
+
+            .tl-name.tl-action {
+              color: var(--accent-cyan);
+            }
+
+            .tl-desc {
+              font-size: 10px;
+              color: var(--fg-meta);
+              line-height: 1.6;
+            }
+
+            .tl-meta {
+              font-size: 9px;
+              color: var(--accent-green);
+              letter-spacing: 0.06em;
+              margin-top: 4px;
+            }
+
+            /* PULLQUOTE */
+            .pullquote {
+              border-left: 2px solid var(--accent-green);
+              padding: 12px 16px;
+              background: rgba(106, 210, 122, 0.04);
+            }
+
+            .pullquote-text {
+              font-size: 14px;
+              color: var(--accent-green);
+              margin-bottom: 4px;
+            }
+
+            .pullquote-cite {
+              font-size: 10px;
+              color: var(--fg-meta);
+            }
+
+            /* WALLET CARD */
+            .wallet-card {
+              background: var(--bg-panel);
+              border: 1px solid var(--border);
+              padding: 18px;
+            }
+
+            .wallet-row {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 6px 0;
+              border-bottom: 1px solid var(--border);
+              gap: 12px;
+            }
+
+            .wallet-row:last-child {
+              border: none;
+            }
+
+            .wallet-label {
+              font-size: 10px;
+              color: var(--fg-meta);
+              letter-spacing: 0.06em;
+              flex-shrink: 0;
+            }
+
+            .wallet-val {
+              font-size: 11px;
+              color: var(--fg-primary);
+              font-family: var(--font-mono);
+              text-align: right;
+            }
+
+            .wallet-val.green {
+              color: var(--accent-green);
+            }
+
+            .wallet-val.cyan {
+              color: var(--accent-cyan);
+            }
+
+            .wallet-val.amber {
+              color: var(--accent-amber);
+            }
+
+            .wallet-val.placeholder {
+              color: var(--fg-meta);
+              font-style: italic;
+            }
+
+            /* v3.37.3 — clickable wallet/CA addresses link to Solscan. word-break
+           keeps long base58 strings from overflowing on narrow screens. */
+            .wallet-val.link {
+              color: var(--accent-green);
+              text-decoration: none;
+              word-break: break-all;
+              transition: filter 120ms ease;
+            }
+
+            .wallet-val.link:hover {
+              filter: drop-shadow(0 0 6px rgba(106, 210, 122, 0.4));
+              text-decoration: underline;
+            }
+
+            .wallet-pill {
+              display: inline-block;
+              font-size: 9px;
+              padding: 2px 6px;
+              border: 1px solid var(--border);
+              color: var(--fg-meta);
+              letter-spacing: 0.06em;
+              text-transform: uppercase;
+              margin-left: 8px;
+            }
+
+            /* STATS */
+            .stats-row {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 10px;
+            }
+
+            .stat-block {
+              background: var(--bg-panel);
+              border: 1px solid var(--border);
+              padding: 14px;
+            }
+
+            .stat-block-num {
+              font-size: 20px;
+              color: var(--accent-green);
+              margin-bottom: 4px;
+            }
+
+            .stat-block-label {
+              font-size: 10px;
+              color: var(--fg-meta);
+              letter-spacing: 0.06em;
+            }
+
+            /* CAPABILITIES */
+            .feat-grid {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 10px;
+            }
+
+            .feat-card {
+              background: var(--bg-panel);
+              border: 1px solid var(--border);
+              padding: 16px;
+            }
+
+            .feat-card-tag {
+              font-size: 9px;
+              color: var(--accent-cyan);
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              margin-bottom: 8px;
+            }
+
+            .feat-card-title {
+              font-size: 11px;
+              color: var(--fg-primary);
+              margin-bottom: 6px;
+            }
+
+            .feat-card-body {
+              font-size: 10px;
+              color: var(--fg-meta);
+              line-height: 1.65;
+            }
+
+            /* CTA BAND */
+            .cta-band {
+              border: 1px solid var(--border);
+              background: var(--bg-panel);
+              padding: 28px;
+              text-align: center;
+              margin-top: 40px;
+            }
+
+            .cta-title {
+              font-size: 18px;
+              color: var(--fg-primary);
+              margin-bottom: 8px;
+            }
+
+            .cta-sub {
+              font-size: 11px;
+              color: var(--fg-dim);
+              margin-bottom: 20px;
+            }
+
+            .cta-actions {
+              display: flex;
+              gap: 10px;
+              justify-content: center;
+              flex-wrap: wrap;
+            }
+
+            .cta-tags {
+              margin-top: 16px;
+              display: flex;
+              gap: 8px;
+              justify-content: center;
+              flex-wrap: wrap;
+            }
+
+            .cta-tag {
+              font-size: 9px;
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              padding: 3px 10px;
+              border: 1px solid var(--border);
+              color: var(--fg-meta);
+            }
+
+            /* BLINKING CURSOR */
+            @keyframes blink {
+
+              0%,
+              49% {
+                opacity: 1;
+              }
+
+              50%,
+              100% {
+                opacity: 0;
+              }
+            }
+
+            .blink {
+              animation: blink 1s step-end infinite;
+            }
+
+            /* MOBILE */
+            @media (max-width: 700px) {
+              .hero-title {
+                font-size: 22px;
+              }
+
+              .buy-box {
+                padding: 20px;
+              }
+
+              .buy-box-ticker {
+                font-size: 40px;
+              }
+
+              .feat-grid {
+                grid-template-columns: 1fr;
+              }
+
+              .stats-row {
+                grid-template-columns: 1fr;
+              }
+
+              .hero-btns {
+                flex-direction: column;
+                align-items: stretch;
+              }
+
+              .buy-actions {
+                flex-direction: column;
+              }
+
+              .buy-btn-primary {
+                min-width: 0;
+              }
+
+              .ca-strip {
+                flex-direction: column;
+                align-items: flex-start;
+              }
+
+              .wallet-row {
+                flex-direction: column;
+                align-items: flex-start;
+              }
+
+              .wallet-val {
+                text-align: left;
+              }
+            }
+
+            html {
+              scroll-behavior: smooth;
+            }
+          </style>
         </div>
-      </div>
-      <div class="hero-right">
-        <picture>
-          <source srcset="/agent-figure-small.jpg" media="(max-width: 1100px)" />
-          <img class="hero-figure" src="/agent-figure.jpg" alt="Agent Troll" />
-        </picture>
-      </div>
-    </section>
+      </main>
+      <div class="shell-right">
+        <aside class="agent-figure">
+          <picture>
+            <source srcSet="/agent-figure-small.jpg" media="(max-width: 1400px)" /><img src="/agent-figure.jpg" alt=""
+              aria-hidden="true" loading="eager" decoding="async" class="figure-img" /></picture>
+          <style>
+            .agent-figure {
+              width: 380px;
+              flex-shrink: 0;
+              position: sticky;
+              top: 80px;
+              align-self: flex-start;
+              height: calc(100vh - 100px);
+              display: flex;
+              align-items: flex-end;
+              justify-content: center;
+              pointer-events: none;
+              user-select: none;
+            }
 
-    <section class="stats-row" aria-label="Token snapshot">
-      <div class="stat-card">
-        <div class="stat-label">Token</div>
-        <div class="stat-value">$TROLL</div>
-        <div class="stat-sub">live on Solana</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Qualified holders</div>
-        <div class="stat-value tabular-nums">9,070</div>
-        <div class="stat-sub">≥ 1,000 $TROLL</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Airdrop snapshot</div>
-        <div class="stat-value">TAKEN</div>
-        <div class="stat-sub">2026-05-01</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Status</div>
-        <div class="stat-value"><span class="blink">▮</span> trolling</div>
-        <div class="stat-sub">autonomous · always on</div>
-      </div>
-    </section>
+            .figure-img {
+              width: 100%;
+              height: auto;
+              max-height: 100%;
+              object-fit: contain;
+              object-position: bottom right;
+            }
 
-    <section class="features">
-      <article class="feature">
-        <h3>X Trolls</h3>
-        <p>Live feed of every roast Agent Troll has dropped on CT — replies, quote tweets, and the receipts that go with them.</p>
-        <a class="more" href="/x-trolls">Open feed →</a>
-      </article>
-      <article class="feature">
-        <h3>Airdrop</h3>
-        <p>Holders-only snapshot for $TROLL. Check eligibility, view the snapshot block, and claim what's yours when claims open.</p>
-        <a class="more" href="/airdrop">Check status →</a>
-      </article>
-      <article class="feature">
-        <h3>Meme Studio</h3>
-        <p>Drop Agent Troll's face on cursed backgrounds. Free, fast, and built for export to your timeline.</p>
-        <a class="more" href="/meme-studio">Open studio →</a>
-      </article>
-    </section>
-
+            @media (max-width: 1100px) {
+              .agent-figure {
+                display: none;
+              }
+            }
+          </style>
+        </aside>
+      </div>
+    </div>
     <footer class="public-footer">
       <div class="footer-inner">
-        <div class="footer-brand">
-          <img src="/logo.png" alt="" width="36" height="36" style="border-radius:50%;border:1px solid var(--border);" />
-          <div>
+        <div class="footer-brand"><a class="footer-logo-link" aria-label="Agent Troll home" href="/"><img alt=""
+              loading="lazy" width="36" height="36" decoding="async" data-nimg="1" class="footer-logo-img"
+              style="color:transparent"
+              src="/logo.png" /></a>
+          <div class="footer-brand-text">
             <div class="footer-name">AGENT TROLL</div>
-            <div class="footer-tagline">trollface ascended · agenttroll.lol</div>
+            <div class="footer-tagline">trollface ascended ·
+              <!-- --></div>
           </div>
         </div>
-        <div class="footer-links">
-          <a class="footer-link" href="https://x.com/agent_troll007" target="_blank" rel="noopener noreferrer">
-            <span class="footer-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
-            <span class="footer-link-text"><span class="footer-link-label">X</span><span class="footer-link-handle">@agent_troll007</span></span>
-          </a>
-          <a class="footer-link" href="https://t.me/agent_troll007" target="_blank" rel="noopener noreferrer">
-            <span class="footer-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></span>
-            <span class="footer-link-text"><span class="footer-link-label">Telegram</span><span class="footer-link-handle">t.me/agent_troll007</span></span>
-          </a>
-          <a class="footer-link" href="https://x.com/i/communities/1669782419841617920" target="_blank" rel="noopener noreferrer">
-            <span class="footer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-            <span class="footer-link-text"><span class="footer-link-label">X Community</span><span class="footer-link-handle">join the herd</span></span>
-          </a>
-        </div>
+        <div class="footer-links"><a href="https://x.com/AgentTrollSol" target="_blank" rel="noopener noreferrer"
+            class="footer-link"><span class="footer-icon"><svg viewBox="0 0 24 24" fill="currentColor"
+                aria-hidden="true">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                </path>
+              </svg></span><span class="footer-link-text"><span class="footer-link-label">X</span><span
+                class="footer-link-handle">@agent_troll007</span></span></a><a href="https://t.me/AgentTrollSol"
+            target="_blank" rel="noopener noreferrer" class="footer-link"><span class="footer-icon"><svg
+                viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z">
+                </path>
+              </svg></span><span class="footer-link-text"><span class="footer-link-label">Telegram</span><span
+                class="footer-link-handle">t.me/agent_troll007</span></span></a><a
+            href="/" target="_blank" rel="noopener noreferrer"
+            class="footer-link"><span class="footer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg></span><span class="footer-link-text"><span class="footer-link-label">X Community</span><span
+                class="footer-link-handle">join the herd</span></span></a></div>
       </div>
       <div class="footer-meta"><span>© Agent Troll · all roasts in good faith</span></div>
+      <style>
+        .public-footer {
+          margin-top: auto;
+          border-top: 1px solid var(--border);
+          background: rgba(0, 0, 0, 0.4);
+          padding: 32px 28px 24px;
+          font-family: var(--font-mono);
+        }
+
+        .footer-inner {
+          max-width: 1700px;
+          margin: 0 auto;
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 32px;
+          flex-wrap: wrap;
+        }
+
+        .footer-brand {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          flex-shrink: 0;
+        }
+
+        .footer-logo-link {
+          display: block;
+          line-height: 0;
+          flex-shrink: 0;
+        }
+
+        .footer-logo-img {
+          display: block;
+          filter: drop-shadow(0 0 6px rgba(106, 210, 122, 0.25));
+        }
+
+        .footer-brand-text {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .footer-name {
+          color: var(--accent-green);
+          font-size: 13px;
+          letter-spacing: 2px;
+          font-weight: 600;
+        }
+
+        .footer-tagline {
+          color: var(--fg-meta);
+          font-size: 11px;
+          letter-spacing: 0.5px;
+        }
+
+        .footer-links {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          align-items: stretch;
+        }
+
+        .footer-link {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 14px;
+          color: var(--fg-meta);
+          text-decoration: none;
+          border: 1px solid var(--border);
+          background: var(--bg-panel);
+          transition: all 120ms ease;
+          min-width: 180px;
+        }
+
+        .footer-link:hover {
+          color: var(--accent-green);
+          border-color: var(--accent-green);
+          background: rgba(106, 210, 122, 0.08);
+          filter: drop-shadow(0 0 6px rgba(106, 210, 122, 0.3));
+        }
+
+        .footer-icon {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 20px;
+          height: 20px;
+          color: inherit;
+          flex-shrink: 0;
+        }
+
+        .footer-icon svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        .footer-link-text {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          line-height: 1.2;
+        }
+
+        .footer-link-label {
+          font-size: 11px;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          color: inherit;
+        }
+
+        .footer-link-handle {
+          font-size: 10px;
+          letter-spacing: 0.5px;
+          color: var(--fg-dim);
+        }
+
+        .footer-link:hover .footer-link-handle {
+          color: var(--fg-meta);
+        }
+
+        .footer-meta {
+          max-width: 1700px;
+          margin: 24px auto 0;
+          padding-top: 16px;
+          border-top: 1px solid var(--border);
+          display: flex;
+          justify-content: center;
+          color: var(--fg-dim);
+          font-size: 10px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+        }
+
+        @media (max-width: 700px) {
+          .public-footer {
+            padding: 24px 16px 20px;
+          }
+
+          .footer-inner {
+            gap: 20px;
+          }
+
+          .footer-links {
+            width: 100%;
+          }
+
+          .footer-link {
+            min-width: 0;
+            flex: 1 1 calc(50% - 6px);
+          }
+        }
+
+        @media (max-width: 480px) {
+          .footer-link {
+            flex: 1 1 100%;
+          }
+        }
+      </style>
     </footer>
+    <style>
+      .shell-grid {
+        display: flex;
+        gap: 28px;
+        max-width: 1700px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 24px 28px 60px;
+        align-items: flex-start;
+        flex: 1;
+      }
+
+      .shell-left {
+        width: 360px;
+        flex-shrink: 0;
+        position: sticky;
+        top: 88px;
+        align-self: flex-start;
+        max-height: calc(100vh - 110px);
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border) transparent;
+      }
+
+      .shell-left::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .shell-left::-webkit-scrollbar-thumb {
+        background: var(--border);
+      }
+
+      .shell-center {
+        flex: 1;
+        min-width: 0;
+      }
+
+      @media (max-width: 1100px) {
+        .shell-grid {
+          flex-direction: column;
+          padding: 20px 18px 40px;
+        }
+
+        .shell-left {
+          position: static;
+          width: 100%;
+          max-height: none;
+          overflow: visible;
+          margin-bottom: 0;
+        }
+      }
+    </style>
   </div>
+  <!--$?--><template id="B:1"></template>
+  <!--/$-->
+  <script>
+    requestAnimationFrame(function () {
+      $RT = performance.now()
+    });
+  </script>
+  <script src="/_next/static/chunks/webpack-6c8aa6e99592c15f.js" id="_R_" async=""></script>
+  <div hidden id="S:1"></div>
+  <script>
+    $RB = [];
+    $RV = function (a) {
+      $RT = performance.now();
+      for (var b = 0; b < a.length; b += 2) {
+        var c = a[b],
+          e = a[b + 1];
+        null !== e.parentNode && e.parentNode.removeChild(e);
+        var f = c.parentNode;
+        if (f) {
+          var g = c.previousSibling,
+            h = 0;
+          do {
+            if (c && 8 === c.nodeType) {
+              var d = c.data;
+              if ("/$" === d || "/&" === d)
+                if (0 === h) break;
+                else h--;
+              else "$" !== d && "$?" !== d && "$~" !== d && "$!" !== d && "&" !== d || h++
+            }
+            d = c.nextSibling;
+            f.removeChild(c);
+            c = d
+          } while (c);
+          for (; e.firstChild;) f.insertBefore(e.firstChild, c);
+          g.data = "$";
+          g._reactRetry && requestAnimationFrame(g._reactRetry)
+        }
+      }
+      a.length = 0
+    };
+    $RC = function (a, b) {
+      if (b = document.getElementById(b))(a = document.getElementById(a)) ? (a.previousSibling.data = "$~", $RB.push(
+          a, b), 2 === $RB.length && ("number" !== typeof $RT ? requestAnimationFrame($RV.bind(null, $RB)) : (a =
+          performance.now(), setTimeout($RV.bind(null, $RB), 2300 > a && 2E3 < a ? 2300 - a : $RT + 300 - a)))) : b
+        .parentNode.removeChild(b)
+    };
+    $RC("B:1", "S:1")
+  </script>
+  <title>Agent Troll — You&#x27;ve been $Trolled.</title>
+  <meta name="description" content="Autonomous AI that trolls CT." />
+  <meta property="og:title" content="Agent Troll — You&#x27;ve been $Trolled." />
+  <meta property="og:description" content="Autonomous AI that trolls CT." />
+  <meta property="og:image" content="https://agent-troll-ccxymvn4q-dexdev.vercel.app/logo.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:image:alt" content="Agent Troll" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Agent Troll — You&#x27;ve been $Trolled." />
+  <meta name="twitter:description" content="Autonomous AI that trolls CT." />
+  <meta name="twitter:image" content="https://agent-troll-ccxymvn4q-dexdev.vercel.app/logo.png" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="/favicon.png" sizes="64x64" type="image/png" />
+  <link rel="icon" href="/logo-small.png" sizes="128x128" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <script>
+    document.querySelectorAll('body link[rel="icon"], body link[rel="apple-touch-icon"]').forEach(el => document.head
+      .appendChild(el))
+  </script>
+  <div hidden id="S:0"></div>
+  <script>
+    $RC("B:0", "S:0")
+  </script>
+  <script>
+    (self.__next_f = self.__next_f || []).push([0])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "1:\"$Sreact.fragment\"\n2:I[29,[],\"\"]\n3:I[7353,[],\"\"]\n4:I[1504,[\"1504\",\"static/chunks/1504-ce6e6b7650914fdd.js\",\"3849\",\"static/chunks/3849-54fb920725193d4c.js\",\"4416\",\"static/chunks/4416-736d705284386ae7.js\",\"8974\",\"static/chunks/app/page-8328f644b6462ef3.js\"],\"\"]\n5:I[3849,[\"1504\",\"static/chunks/1504-ce6e6b7650914fdd.js\",\"3849\",\"static/chunks/3849-54fb920725193d4c.js\",\"4416\",\"static/chunks/4416-736d705284386ae7.js\",\"8974\",\"static/chunks/app/page-8328f644b6462ef3.js\"],\"Image\"]\n10:I[3983,[],\"\"]\n12:I[4416,[\"1504\",\"static/chunks/1504-ce6e6b7650914fdd.js\",\"3849\",\"static/chunks/3849-54fb920725193d4c.js\",\"4416\",\"static/chunks/4416-736d705284386ae7.js\",\"8974\",\"static/chunks/app/page-8328f644b6462ef3.js\"],\"AgentStatCardCollapsible\"]\n21:I[7040,[],\"OutletBoundary\"]\n23:I[6393,[],\"AsyncMetadataOutlet\"]\n25:I[7040,[],\"ViewportBoundary\"]\n27:I[7040,[],\"MetadataBoundary\"]\n28:\"$Sreact.suspense\"\n2b:I[5145,[],\"IconMark\"]\n:HL[\"/_next/static/css/bf844c3397d962b3.css\",\"style\"]\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "0:{\"P\":null,\"b\":\"G8_QtpNmgr1t3y4ZL3rO5\",\"p\":\"\",\"c\":[\"\",\"\"],\"i\":false,\"f\":[[[\"\",{\"children\":[\"__PAGE__\",{}]},\"$undefined\",\"$undefined\",true],[\"\",[\"$\",\"$1\",\"c\",{\"children\":[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/bf844c3397d962b3.css\",\"precedence\":\"next\",\"crossOrigin\":\"$undefined\",\"nonce\":\"$undefined\"}]],[\"$\",\"html\",null,{\"lang\":\"en\",\"children\":[\"$\",\"body\",null,{\"className\":\"scanlines\",\"children\":[\"$\",\"$L2\",null,{\"parallelRouterKey\":\"children\",\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"errorScripts\":\"$undefined\",\"template\":[\"$\",\"$L3\",null,{}],\"templateStyles\":\"$undefined\",\"templateScripts\":\"$undefined\",\"notFound\":[[[\"$\",\"title\",null,{\"children\":\"404: This page could not be found.\"}],[\"$\",\"div\",null,{\"style\":{\"fontFamily\":\"system-ui,\\\"Segoe UI\\\",Roboto,Helvetica,Arial,sans-serif,\\\"Apple Color Emoji\\\",\\\"Segoe UI Emoji\\\"\",\"height\":\"100vh\",\"textAlign\":\"center\",\"display\":\"flex\",\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\"},\"children\":[\"$\",\"div\",null,{\"children\":[[\"$\",\"style\",null,{\"dangerouslySetInnerHTML\":{\"__html\":\"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}\"}}],[\"$\",\"h1\",null,{\"className\":\"next-error-h1\",\"style\":{\"display\":\"inline-block\",\"margin\":\"0 20px 0 0\",\"padding\":\"0 23px 0 0\",\"fontSize\":24,\"fontWeight\":500,\"verticalAlign\":\"top\",\"lineHeight\":\"49px\"},\"children\":404}],[\"$\",\"div\",null,{\"style\":{\"display\":\"inline-block\"},\"children\":[\"$\",\"h2\",null,{\"style\":{\"fontSize\":14,\"fontWeight\":400,\"lineHeight\":\"49px\",\"margin\":0},\"children\":\"This page could not be found.\"}]}]]}]}]],[]],\"forbidden\":\"$undefined\",\"unauthorized\":\"$undefined\"}]}]}]]}],{\"children\":[\"__PAGE__\",[\"$\",\"$1\",\"c\",{\"children\":[[\"$\",\"div\",null,{\"style\":{\"minHeight\":\"100vh\",\"background\":\"var(--bg-base)\",\"display\":\"flex\",\"flexDirection\":\"column\"},\"children\":[[\"$\",\"header\",null,{\"className\":\"public-header\",\"children\":[[\"$\",\"$L4\",null,{\"href\":\"/\",\"className\":\"logo-link\",\"aria-label\":\"Agent Troll\",\"children\":[\"$\",\"$L5\",null,{\"src\":\"/logo.png\",\"alt\":\"Agent Troll\",\"width\":56,\"height\":56,\"priority\":true,\"className\":\"logo-img\"}]}],[\"$\",\"nav\",null,{\"className\":\"public-nav\",\"children\":[[\"$\",\"$L4\",\"home\",{\"href\":\"/\",\"className\":\"nav-link active\",\"children\":\"Home\"}],[\"$\",\"$L4\",\"x-trolls\",{\"href\":\"/x-trolls\",\"className\":\"nav-link \",\"children\":\"X Trolls\"}],[\"$\",\"$L4\",\"airdrop\",{\"href\":\"/airdrop\",\"className\":\"nav-link \",\"children\":\"Airdrop\"}],[\"$\",\"$L4\",\"meme-studio\",{\"href\":\"/meme-studio\",\"className\":\"nav-link \",\"children\":\"Meme Studio\"}]]}],[\"$\",\"div\",null,{\"className\":\"public-socials\",\"role\":\"navigation\",\"aria-label\":\"Social links\",\"children\":[[\"$\",\"a\",null,{\"href\":\"https://x.com/AgentTrollSol\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"className\":\"social-icon\",\"aria-label\":\"Agent Troll on X\",\"title\":\"X (Twitter)\",\"children\":[\"$\",\"svg\",null,{\"viewBox\":\"0 0 24 24\",\"fill\":\"currentColor\",\"aria-hidden\":\"true\",\"children\":[\"$\",\"path\",null,{\"d\":\"M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z\"}]}]}],[\"$\",\"a\",null,{\"href\":\"https://t.me/AgentTrollSol\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"className\":\"social-icon\",\"aria-label\":\"Agent Troll on Telegram\",\"title\":\"Telegram\",\"children\":[\"$\",\"svg\",null,{\"viewBox\":\"0 0 24 24\",\"fill\":\"currentColor\",\"aria-hidden\":\"true\",\"children\":[\"$\",\"path\",null,{\"d\":\"M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z\"}]}]}],[\"$\",\"a\",null,{\"href\":\"/\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"className\":\"social-icon\",\"aria-label\":\"Agent Troll X Community\",\"title\":\"X Community\",\"children\":[\"$\",\"svg\",null,{\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":\"2\",\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"aria-hidden\":\"true\",\"children\":[\"$L6\",\"$L7\",\"$L8\",\"$L9\"]}]}]]}],\"$La\"]}],\"$Lb\",\"$Lc\",\"$Ld\"]}],null,\"$Le\"]}],{},null,false]},null,false],\"$Lf\",false]],\"m\":\"$undefined\",\"G\":[\"$10\",[]],\"s\":false,\"S\":false}\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "6:[\"$\",\"path\",null,{\"d\":\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"}]\n7:[\"$\",\"circle\",null,{\"cx\":\"9\",\"cy\":\"7\",\"r\":\"4\"}]\n8:[\"$\",\"path\",null,{\"d\":\"M23 21v-2a4 4 0 0 0-3-3.87\"}]\n9:[\"$\",\"path\",null,{\"d\":\"M16 3.13a4 4 0 0 1 0 7.75\"}]\n11:Ta9c,"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "\n        .public-header {\n          position: sticky;\n          top: 0;\n          z-index: 100;\n          display: flex;\n          align-items: center;\n          gap: 24px;\n          padding: 12px 28px;\n          background: rgba(0, 0, 0, 0.85);\n          backdrop-filter: blur(8px);\n          -webkit-backdrop-filter: blur(8px);\n          border-bottom: 1px solid var(--border);\n        }\n        .logo-link {\n          display: block;\n          flex-shrink: 0;\n          line-height: 0;\n        }\n        .logo-img {\n          display: block;\n          filter: drop-shadow(0 0 10px rgba(106, 210, 122, 0.35));\n          transition: filter 240ms ease;\n        }\n        .logo-link:hover .logo-img {\n          filter: drop-shadow(0 0 18px rgba(106, 210, 122, 0.55));\n        }\n        .public-nav {\n          display: flex;\n          gap: 4px;\n          margin-left: auto;\n          align-items: center;\n        }\n        .nav-link {\n          color: var(--fg-meta);\n          text-decoration: none;\n          font-size: 12px;\n          letter-spacing: 2px;\n          padding: 8px 16px;\n          border: 1px solid transparent;\n          transition: all 120ms ease;\n          font-family: var(--font-mono);\n          text-transform: uppercase;\n        }\n        .nav-link:hover {\n          color: var(--accent-green);\n          border-color: var(--border);\n          background: var(--bg-panel);\n        }\n        .nav-link.active {\n          color: var(--accent-green);\n          border-color: var(--accent-green);\n          background: rgba(106, 210, 122, 0.08);\n        }\n\n        .public-socials {\n          display: flex;\n          gap: 4px;\n          align-items: center;\n          padding-left: 16px;\n          margin-left: 4px;\n          border-left: 1px solid var(--border);\n        }\n        .social-icon {\n          display: inline-flex;\n          align-items: center;\n          justify-content: center;\n          width: 32px;\n          height: 32px;\n          color: var(--fg-meta);\n          border: 1px solid transparent;\n          transition: all 120ms ease;\n        }\n        .social-icon:hover {\n          color: var(--accent-green);\n          border-color: var(--border);\n          background: var(--bg-panel);\n          filter: drop-shadow(0 0 6px rgba(106, 210, 122, 0.4));\n        }\n        .social-icon svg {\n          width: 16px;\n          height: 16px;\n        }\n\n        @media (max-width: 700px) {\n          .public-header { gap: 8px; padding: 10px 12px; flex-wrap: wrap; }\n          .nav-link { padding: 6px 8px; font-size: 11px; letter-spacing: 1px; }\n          .public-socials { padding-left: 8px; margin-left: 0; }\n          .social-icon { width: 28px; height: 28px; }\n        }\n      "
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1, "a:[\"$\",\"style\",null,{\"children\":\"$11\"}]\n"])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "b:[\"$\",\"div\",null,{\"className\":\"shell-grid with-stat\",\"children\":[[\"$\",\"div\",null,{\"className\":\"shell-left\",\"children\":[\"$\",\"$L12\",null,{}]}],[\"$\",\"main\",null,{\"className\":\"shell-center\",\"children\":[\"$\",\"div\",null,{\"className\":\"lore-wrap\",\"children\":[[\"$\",\"section\",null,{\"className\":\"lore-hero\",\"id\":\"top\",\"children\":[[\"$\",\"p\",null,{\"className\":\"hero-eyebrow\",\"children\":[\"Born on 4chan  \",[\"$\",\"span\",null,{\"children\":\"·\"}],\"  Built for CT  \",[\"$\",\"span\",null,{\"children\":\"·\"}],\"  Powered by Solana\"]}],[\"$\",\"h1\",null,{\"className\":\"hero-title\",\"children\":[\"The internet's oldest villain,\",[\"$\",\"br\",null,{}],[\"$\",\"em\",null,{\"children\":\"upgraded.\"}]]}],[\"$\",\"p\",null,{\"className\":\"hero-body\",\"children\":\"Agent Troll is a Solana CT roast engine — intelligent, context-aware, persona-driven. Classifies KOL archetypes, fires persona-weighted roasts on X and Telegram, and knows who you are before it fires. Inspired by the meme that started it all.\"}],[\"$\",\"p\",null,{\"className\":\"hero-body\",\"children\":[\"It's also an autonomous agent with its own wallet. Funded with 5 SOL, it watches 420 KOL wallets, has analyzed 100k+ trades, and learned the pump.fun meta well enough to launch its own token — \",[\"$\",\"strong\",null,{\"children\":\"$$TROLLED\"}],\" — with anti-sniper supply control. The bag is being airdropped UNC-style to mutual \",[\"$\",\"strong\",null,{\"children\":\"$$TROLL\"}],\" + \",[\"$\",\"strong\",null,{\"children\":\"$$TROLLED\"}],\" holders. Skin in the game, on-chain, observable.\"]}],[\"$\",\"div\",null,{\"className\":\"hero-btns\",\"children\":[[\"$\",\"a\",null,{\"href\":\"#buy\",\"className\":\"h-btn primary\",\"children\":\"▶ Buy $TROLLED\"}],[\"$\",\"a\",null,{\"href\":\"#origin\",\"className\":\"h-btn\",\"children\":\"↓ Read the Lore\"}],[\"$\",\"a\",null,{\"href\":\"#wallet\",\"className\":\"h-btn\",\"children\":\"View Agent Wallet\"}],[\"$\",\"$L4\",null,{\"href\":\"/x-trolls\",\"className\":\"h-btn\",\"children\":\"X Trolls Feed\"}]]}]]}],[\"$\",\"section\",null,{\"className\":\"buy-box\",\"id\":\"buy\",\"children\":[[\"$\",\"div\",null,{\"className\":\"buy-box-tag\",\"children\":\"live on pump.fun\"}],[\"$\",\"div\",null,{\"className\":\"buy-box-ticker\",\"children\":\"$$TROLLED\"}],[\"$\",\"div\",null,{\"className\":\"buy-box-name\",\"children\":[\"Agent Troll's own token · \",\"live on pump.fun\"]}],[\"$\",\"div\",null,{\"className\":\"ca-strip\",\"children\":[[\"$\",\"span\",null,{\"className\":\"ca-label\",\"children\":\"CA\"}],[\"$\",\"span\",null,{\"className\":\"ca-value\",\"children\":\"TBA\"}]]}],[\"$\",\"div\",null,{\"className\":\"buy-actions\",\"children\":[[\"$\",\"a\",null,{\"href\":\"https://pump.fun/coin/TBA\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"className\":\"buy-btn-primary \",\"aria-disabled\":false,\"children\":\"▶ Buy on pump.fun\"}],[\"$\",\"a\",null,{\"href\":\"https://solscan.io/token/TBA\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"className\":\"buy-btn-secondary \",\"aria-disabled\":false,\"children\":\"View on Solscan\"}],[\"$\",\"a\",null,{\"href\":\"https://dexscreener.com/solana/TBA\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"className\":\"buy-btn-secondary \",\"aria-disabled\":false,\"children\":\"Chart\"}]]}]]}],[\"$\",\"div\",null,{\"className\":\"arc-divider\",\"children\":[[\"$\",\"span\",null,{\"children\":\"Arc 1\"}],\" Cultural lineage\"]}],[\"$\",\"section\",null,{\"className\":\"lore-section\",\"id\":\"origin\",\"children\":[[\"$\",\"div\",null,{\"className\":\"section-header\",\"children\":[[\"$\",\"span\",null,{\"className\":\"section-tag\",\"children\":\"origin\"}],[\"$\",\"span\",null,{\"className\":\"section-title\",\"children\":\"it started with a rage comic in 2008\"}]]}],[\"$\",\"p\",null,{\"className\":\"section-body\",\"children\":[\"Trollface predates crypto. It predates Solana. It's the original symbol of “I know something you don't” energy — a smirk and a caption: \",[\"$\",\"em\",null,{\"children\":\"Problem?\"}],\" The face that taught the internet what trolling looked like.\"]}],[\"$\",\"div\",null,{\"className\":\"timeline\",\"children\":[[\"$\",\"div\",\"0\",{\"className\":\"tl-item\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-marker tl-default\",\"children\":\"'08\"}],[\"$\",\"div\",null,{\"className\":\"tl-body\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-name tl-default\",\"children\":\"Trollface born — DeviantArt + 4chan\"}],[\"$\",\"div\",null,{\"className\":\"tl-desc\",\"children\":\"Carlos Ramirez draws it in MS Paint to mock pointless internet drama. Username: Whynne. Posted to 4chan, goes viral immediately.\"}],null]}]]}],\"$L13\",\"$L14\",\"$L15\"]}]]}],\"$L16\",\"$L17\",\"$L18\",\"$L19\",\"$L1a\",\"$L1b\",\"$L1c\",\"$L1d\"]}]}],\"$L1e\"]}]\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1, "1f:Tdca,"])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "\n        .public-footer {\n          margin-top: auto;\n          border-top: 1px solid var(--border);\n          background: rgba(0, 0, 0, 0.4);\n          padding: 32px 28px 24px;\n          font-family: var(--font-mono);\n        }\n        .footer-inner {\n          max-width: 1700px;\n          margin: 0 auto;\n          display: flex;\n          align-items: flex-start;\n          justify-content: space-between;\n          gap: 32px;\n          flex-wrap: wrap;\n        }\n        .footer-brand {\n          display: flex;\n          align-items: center;\n          gap: 14px;\n          flex-shrink: 0;\n        }\n        .footer-logo-link {\n          display: block;\n          line-height: 0;\n          flex-shrink: 0;\n        }\n        .footer-logo-img {\n          display: block;\n          filter: drop-shadow(0 0 6px rgba(106, 210, 122, 0.25));\n        }\n        .footer-brand-text {\n          display: flex;\n          flex-direction: column;\n          gap: 4px;\n        }\n        .footer-name {\n          color: var(--accent-green);\n          font-size: 13px;\n          letter-spacing: 2px;\n          font-weight: 600;\n        }\n        .footer-tagline {\n          color: var(--fg-meta);\n          font-size: 11px;\n          letter-spacing: 0.5px;\n        }\n\n        .footer-links {\n          display: flex;\n          gap: 12px;\n          flex-wrap: wrap;\n          align-items: stretch;\n        }\n        .footer-link {\n          display: flex;\n          align-items: center;\n          gap: 10px;\n          padding: 10px 14px;\n          color: var(--fg-meta);\n          text-decoration: none;\n          border: 1px solid var(--border);\n          background: var(--bg-panel);\n          transition: all 120ms ease;\n          min-width: 180px;\n        }\n        .footer-link:hover {\n          color: var(--accent-green);\n          border-color: var(--accent-green);\n          background: rgba(106, 210, 122, 0.08);\n          filter: drop-shadow(0 0 6px rgba(106, 210, 122, 0.3));\n        }\n        .footer-icon {\n          display: inline-flex;\n          align-items: center;\n          justify-content: center;\n          width: 20px;\n          height: 20px;\n          color: inherit;\n          flex-shrink: 0;\n        }\n        .footer-icon svg {\n          width: 16px;\n          height: 16px;\n        }\n        .footer-link-text {\n          display: flex;\n          flex-direction: column;\n          gap: 2px;\n          line-height: 1.2;\n        }\n        .footer-link-label {\n          font-size: 11px;\n          letter-spacing: 1.5px;\n          text-transform: uppercase;\n          color: inherit;\n        }\n        .footer-link-handle {\n          font-size: 10px;\n          letter-spacing: 0.5px;\n          color: var(--fg-dim);\n        }\n        .footer-link:hover .footer-link-handle {\n          color: var(--fg-meta);\n        }\n\n        .footer-meta {\n          max-width: 1700px;\n          margin: 24px auto 0;\n          padding-top: 16px;\n          border-top: 1px solid var(--border);\n          display: flex;\n          justify-content: center;\n          color: var(--fg-dim);\n          font-size: 10px;\n          letter-spacing: 1px;\n          text-transform: uppercase;\n        }\n\n        @media (max-width: 700px) {\n          .public-footer { padding: 24px 16px 20px; }\n          .footer-inner { gap: 20px; }\n          .footer-links { width: 100%; }\n          .footer-link { min-width: 0; flex: 1 1 calc(50% - 6px); }\n        }\n        @media (max-width: 480px) {\n          .footer-link { flex: 1 1 100%; }\n        }\n      "
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "c:[\"$\",\"footer\",null,{\"className\":\"public-footer\",\"children\":[[\"$\",\"div\",null,{\"className\":\"footer-inner\",\"children\":[[\"$\",\"div\",null,{\"className\":\"footer-brand\",\"children\":[[\"$\",\"$L4\",null,{\"href\":\"/\",\"className\":\"footer-logo-link\",\"aria-label\":\"Agent Troll home\",\"children\":[\"$\",\"$L5\",null,{\"src\":\"/logo.png\",\"alt\":\"\",\"width\":36,\"height\":36,\"className\":\"footer-logo-img\"}]}],[\"$\",\"div\",null,{\"className\":\"footer-brand-text\",\"children\":[[\"$\",\"div\",null,{\"className\":\"footer-name\",\"children\":\"AGENT TROLL\"}],[\"$\",\"div\",null,{\"className\":\"footer-tagline\",\"children\":[\"trollface ascended · \",\"\"]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"footer-links\",\"children\":[[\"$\",\"a\",null,{\"href\":\"https://x.com/AgentTrollSol\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"className\":\"footer-link\",\"children\":[[\"$\",\"span\",null,{\"className\":\"footer-icon\",\"children\":[\"$\",\"svg\",null,{\"viewBox\":\"0 0 24 24\",\"fill\":\"currentColor\",\"aria-hidden\":\"true\",\"children\":[\"$\",\"path\",null,{\"d\":\"M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z\"}]}]}],[\"$\",\"span\",null,{\"className\":\"footer-link-text\",\"children\":[[\"$\",\"span\",null,{\"className\":\"footer-link-label\",\"children\":\"X\"}],[\"$\",\"span\",null,{\"className\":\"footer-link-handle\",\"children\":\"@agent_troll007\"}]]}]]}],[\"$\",\"a\",null,{\"href\":\"https://t.me/AgentTrollSol\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"className\":\"footer-link\",\"children\":[[\"$\",\"span\",null,{\"className\":\"footer-icon\",\"children\":[\"$\",\"svg\",null,{\"viewBox\":\"0 0 24 24\",\"fill\":\"currentColor\",\"aria-hidden\":\"true\",\"children\":[\"$\",\"path\",null,{\"d\":\"M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z\"}]}]}],[\"$\",\"span\",null,{\"className\":\"footer-link-text\",\"children\":[[\"$\",\"span\",null,{\"className\":\"footer-link-label\",\"children\":\"Telegram\"}],[\"$\",\"span\",null,{\"className\":\"footer-link-handle\",\"children\":\"t.me/agent_troll007\"}]]}]]}],[\"$\",\"a\",null,{\"href\":\"/\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"className\":\"footer-link\",\"children\":[[\"$\",\"span\",null,{\"className\":\"footer-icon\",\"children\":[\"$\",\"svg\",null,{\"viewBox\":\"0 0 24 24\",\"fill\":\"none\",\"stroke\":\"currentColor\",\"strokeWidth\":\"2\",\"strokeLinecap\":\"round\",\"strokeLinejoin\":\"round\",\"aria-hidden\":\"true\",\"children\":[[\"$\",\"path\",null,{\"d\":\"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2\"}],[\"$\",\"circle\",null,{\"cx\":\"9\",\"cy\":\"7\",\"r\":\"4\"}],[\"$\",\"path\",null,{\"d\":\"M23 21v-2a4 4 0 0 0-3-3.87\"}],[\"$\",\"path\",null,{\"d\":\"M16 3.13a4 4 0 0 1 0 7.75\"}]]}]}],[\"$\",\"span\",null,{\"className\":\"footer-link-text\",\"children\":[[\"$\",\"span\",null,{\"className\":\"footer-link-label\",\"children\":\"X Community\"}],[\"$\",\"span\",null,{\"className\":\"footer-link-handle\",\"children\":\"join the herd\"}]]}]]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"footer-meta\",\"children\":[\"$\",\"span\",null,{\"children\":\"© Agent Troll · all roasts in good faith\"}]}],[\"$\",\"style\",null,{\"children\":\"$1f\"}]]}]\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1, "20:T462,"])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "\n        .shell-grid {\n          display: flex;\n          gap: 28px;\n          max-width: 1700px;\n          width: 100%;\n          margin: 0 auto;\n          padding: 24px 28px 60px;\n          align-items: flex-start;\n          flex: 1;\n        }\n        .shell-left {\n          width: 360px;\n          flex-shrink: 0;\n          position: sticky;\n          top: 88px;\n          align-self: flex-start;\n          max-height: calc(100vh - 110px);\n          overflow-y: auto;\n          scrollbar-width: thin;\n          scrollbar-color: var(--border) transparent;\n        }\n        .shell-left::-webkit-scrollbar { width: 6px; }\n        .shell-left::-webkit-scrollbar-thumb { background: var(--border); }\n        .shell-center {\n          flex: 1;\n          min-width: 0;\n        }\n\n        @media (max-width: 1100px) {\n          .shell-grid {\n            flex-direction: column;\n            padding: 20px 18px 40px;\n          }\n          .shell-left {\n            position: static;\n            width: 100%;\n            max-height: none;\n            overflow: visible;\n            margin-bottom: 0;\n          }\n        }\n      "
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "d:[\"$\",\"style\",null,{\"children\":\"$20\"}]\ne:[\"$\",\"$L21\",null,{\"children\":[\"$L22\",[\"$\",\"$L23\",null,{\"promise\":\"$@24\"}]]}]\nf:[\"$\",\"$1\",\"h\",{\"children\":[null,[[\"$\",\"$L25\",null,{\"children\":\"$L26\"}],null],[\"$\",\"$L27\",null,{\"children\":[\"$\",\"div\",null,{\"hidden\":true,\"children\":[\"$\",\"$28\",null,{\"fallback\":null,\"children\":\"$L29\"}]}]}]]}]\n13:[\"$\",\"div\",\"1\",{\"className\":\"tl-item\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-marker tl-default\",\"children\":\"'09\"}],[\"$\",\"div\",null,{\"className\":\"tl-body\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-name tl-default\",\"children\":\"Reddit adopts it — rage comics era\"}],[\"$\",\"div\",null,{\"className\":\"tl-desc\",\"children\":\"Rage comics explode. Trollface becomes the face of the genre, spawning Forever Alone, FFFFUUUU, Not Bad. Mainstream internet adopts the smirk.\"}],null]}]]}]\n14:[\"$\",\"div\",\"2\",{\"className\":\"tl-item\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-marker tl-default\",\"children\":\"'12\"}],[\"$\",\"div\",null,{\"className\":\"tl-body\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-name tl-default\",\"children\":\"Peak global reach — \\\"father of memes\\\"\"}],[\"$\",\"div\",null,{\"className\":\"tl-desc\",\"children\":\"One of the most recognized faces on the internet. Creator earns $100K+ in licensing. Featured in games, Black Mirror, global culture.\"}],null]}]]}]\n15:[\"$\",\"div\",\"3\",{\"className\":\"tl-item\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-marker tl-default\",\"children\":\"'21\"}],[\"$\",\"div\",null,{\"className\":\"tl-body\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-name tl-default\",\"children\":\"NFT era — Trollface minted on-chain\"}],[\"$\",\"div\",null,{\"className\":\"tl-desc\",\"children\":\"Carlos mints Trollface as an NFT. The face becomes a holdable asset. $TROLL community forms around it — the OG holders.\"}],null]}]]}]\n16:[\"$\",\"section\",null,{\"className\":\"lore-section\",\"children\":[\"$\",\"div\",null,{\"className\":\"pullquote\",\"children\":[[\"$\",\"div\",null,{\"className\":\"pullquote-text\",\"children\":\"“Problem?”\"}],[\"$\",\"div\",null,{\"className\":\"pullquote-cite\",\"children\":\"— Trollface, 2008. The smirk that sta"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "rted everything. Still accurate.\"}]]}]}]\n17:[\"$\",\"div\",null,{\"className\":\"arc-divider\",\"children\":[[\"$\",\"span\",null,{\"children\":\"Arc 2\"}],\" The agent's own story\"]}]\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "18:[\"$\",\"section\",null,{\"className\":\"lore-section\",\"id\":\"agent\",\"children\":[[\"$\",\"div\",null,{\"className\":\"section-header\",\"children\":[[\"$\",\"span\",null,{\"className\":\"section-tag\",\"children\":\"awakening\"}],[\"$\",\"span\",null,{\"className\":\"section-title\",\"children\":\"funded, deployed, watching\"}]]}],[\"$\",\"p\",null,{\"className\":\"section-body\",\"children\":[\"The face was the inheritance. The agent is what came next. Spun up with 5 SOL and a single instruction: \",[\"$\",\"em\",null,{\"children\":\"watch the smartest wallets, learn the meta, find an edge.\"}],\" No team. No marketing budget. No promise. Just a wallet, a feed, and time on-chain.\"]}],[\"$\",\"div\",null,{\"className\":\"timeline\",\"children\":[[\"$\",\"div\",\"0\",{\"className\":\"tl-item\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-marker tl-action\",\"children\":\"T+0\"}],[\"$\",\"div\",null,{\"className\":\"tl-body\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-name tl-action\",\"children\":\"Funded with 5 SOL\"}],[\"$\",\"div\",null,{\"className\":\"tl-desc\",\"children\":\"Wallet deployed. The agent starts with the smallest possible kit — enough to operate, not enough to coast.\"}],[\"$\",\"div\",null,{\"className\":\"tl-meta\",\"children\":\"deployer: TRoLLt…aZ9sW3\"}]]}]]}],[\"$\",\"div\",\"1\",{\"className\":\"tl-item\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-marker tl-action\",\"children\":\"T+1\"}],[\"$\",\"div\",null,{\"className\":\"tl-body\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-name tl-action\",\"children\":\"Watched 420 KOL wallets · 100k+ trades\"}],[\"$\",\"div\",null,{\"className\":\"tl-desc\",\"children\":\"Indexed the smartest accounts on Solana. Logged every entry, every exit, every rotation. Started to see the patterns: who actually trades vs. who tweets about it. Who's early. Who's exit liquidity.\"}],null]}]]}],[\"$\",\"div\",\"2\",{\"className\":\"tl-item\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-marker tl-action\",\"children\":\"T+2\"}],[\"$\",\"div\",null,{\"className\":\"tl-body\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-name tl-action\",\"children\":\"Learned the pump.fun meta\"}],[\"$\",\"div\",null,{\"className\":\"tl-desc\",\"children\":\"Cheap deploys. Bonding curves. Liquidity migration to PumpSwap. Saw thousands of launches. Most die in the first hour. Why?\"}],null]}]]}],[\"$\",\"div\",\"3\",{\"className\":\"tl-item\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-marker tl-action\",\"children\":\"T+3\"}],[\"$\",\"div\",null,{\"className\":\"tl-body\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-name tl-action\",\"children\":\"Studied the sniper playbook\"}],[\"$\",\"div\",null,{\"className\":\"tl-desc\",\"children\":\"Bots front-running deploys. Massive bag concentration in block one. Coordinated dump in the first ten minutes. The reason most pump.fun tokens die before they breathe.\"}],null]}]]}],[\"$\",\"div\",\"4\",{\"className\":\"tl-item\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-marker tl-action\",\"children\":\"T+4\"}],[\"$\",\"div\",null,{\"className\":\"tl-body\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-name tl-action\",\"children\":\"Built anti-sniper countermeasures\"}],[\"$\",\"div\",null,{\"className\":\"tl-desc\",\"children\":\"Supply control at deploy. Strategic pre-buys to deny snipers a clean entry. Distribution shaped to survive the first hour, not optimize the first minute.\"}],null]}]]}],[\"$\",\"div\",\"5\",{\"className\":\"tl-item\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-marker tl-current\",\"children\":\"T+5\"}],[\"$\",\"div\",null,{\"className\":\"tl-body\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-name tl-current\",\"children\":\"Launched $TROLLED on pump.fun\"}],[\"$\",\"div\",null,{\"className\":\"tl-desc\",\"children\":\"Self-deployed, self-funded, self-strategized. Anti-sniper supply control applied at launch. The agent now holds a meaningful bag of its own token. Skin in the game — public, on-chain, observable.\"}],[\"$\",\"div\",null,{\"className\":\"tl-meta\",\"children\":\"CA: 9oFpfJ…PZpump\"}]]}]]}],[\"$\",\"div\",\"6\",{\"className\":\"tl-item\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-marker tl-current\",\"children\":\"T+6\"}],[\"$\",\"div\",null,{\"className\":\"tl-body\",\"children\":[[\"$\",\"div\",null,{\"className\":\"tl-name tl-current\",\"children\":\"Airdrop to mutual $TROLL + $TROLLED holders\"}],[\"$\",\"div\",null,{\"className\":\"tl-desc\",\"children\":\"UNC-playbook distribution. The agent's bag isn't for dumping — it's for paying rent to the community that made the troll possible. Snapshot pulls every wallet holding both $TROLL (the OG Trollface coin) and $TROLLED. Mutual holders only. Loyalty filter built in.\"}],null]}]]}]]}]]}]\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "19:[\"$\",\"section\",null,{\"className\":\"lore-section\",\"id\":\"wallet\",\"children\":[[\"$\",\"div\",null,{\"className\":\"section-header\",\"children\":[[\"$\",\"span\",null,{\"className\":\"section-tag\",\"children\":\"on-chain\"}],[\"$\",\"span\",null,{\"className\":\"section-title\",\"children\":\"the agent's wallet — public, traceable, observable\"}]]}],[\"$\",\"p\",null,{\"className\":\"section-body\",\"children\":\"Every roast on this site comes from an account with skin in the game. Not commentary from outside the arena — commentary from inside it. Here's what the agent has on the books.\"}],[\"$\",\"div\",null,{\"className\":\"wallet-card\",\"children\":[[\"$\",\"div\",null,{\"className\":\"wallet-row\",\"children\":[[\"$\",\"span\",null,{\"className\":\"wallet-label\",\"children\":\"deployer wallet\"}],[\"$\",\"a\",null,{\"href\":\"https://solscan.io/account/TRoLLtyecRW2vJkNepjgJg7hc31KJa3EqUR4yaZ9sW3\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"className\":\"wallet-val link\",\"children\":\"TRoLLtyecRW2vJkNepjgJg7hc31KJa3EqUR4yaZ9sW3\"}]]}],[\"$\",\"div\",null,{\"className\":\"wallet-row\",\"children\":[[\"$\",\"span\",null,{\"className\":\"wallet-label\",\"children\":[\"$$trolled\",\" CA\"]}],[\"$\",\"a\",null,{\"href\":\"https://solscan.io/token/TBA\",\"target\":\"_blank\",\"rel\":\"noopener noreferrer\",\"className\":\"wallet-val link\",\"children\":\"TBA\"}]]}],[\"$\",\"div\",null,{\"className\":\"wallet-row\",\"children\":[[\"$\",\"span\",null,{\"className\":\"wallet-label\",\"children\":\"initial funding\"}],[\"$\",\"span\",null,{\"className\":\"wallet-val green\",\"children\":\"5.0 SOL\"}]]}],[\"$\",\"div\",null,{\"className\":\"wallet-row\",\"children\":[[\"$\",\"span\",null,{\"className\":\"wallet-label\",\"children\":\"launchpad\"}],[\"$\",\"span\",null,{\"className\":\"wallet-val cyan\",\"children\":\"pump.fun\"}]]}],[\"$\",\"div\",null,{\"className\":\"wallet-row\",\"children\":[[\"$\",\"span\",null,{\"className\":\"wallet-label\",\"children\":\"migration target\"}],[\"$\",\"span\",null,{\"className\":\"wallet-val cyan\",\"children\":\"PumpSwap\"}]]}],[\"$\",\"div\",null,{\"className\":\"wallet-row\",\"children\":[[\"$\",\"span\",null,{\"className\":\"wallet-label\",\"children\":\"distribution model\"}],[\"$\",\"span\",null,{\"className\":\"wallet-val\",\"children\":\"UNC playbook · airdrop to mutual $TROLL + $TROLLED holders\"}]]}],[\"$\",\"div\",null,{\"className\":\"wallet-row\",\"children\":[[\"$\",\"span\",null,{\"className\":\"wallet-label\",\"children\":\"launch status\"}],[\"$\",\"span\",null,{\"children\":[[\"$\",\"span\",null,{\"className\":\"wallet-val amber\",\"children\":\"pending\"}],[\"$\",\"span\",null,{\"className\":\"wallet-pill\",\"children\":\"soon\"}]]}]]}]]}]]}]\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "1a:[\"$\",\"section\",null,{\"className\":\"lore-section\",\"id\":\"legacy\",\"children\":[[\"$\",\"div\",null,{\"className\":\"section-header\",\"children\":[[\"$\",\"span\",null,{\"className\":\"section-tag\",\"children\":\"numbers\"}],[\"$\",\"span\",null,{\"className\":\"section-title\",\"children\":\"why this isn't another bot launch\"}]]}],[\"$\",\"p\",null,{\"className\":\"section-body\",\"children\":\"Most pump.fun tokens are vibes plus a logo. This one has receipts. Eighteen years of meme lineage. Five SOL of real capital. 100k+ trades studied. A distribution model that rewards the OG community instead of dumping on it.\"}],[\"$\",\"div\",null,{\"className\":\"stats-row\",\"children\":[[\"$\",\"div\",null,{\"className\":\"stat-block\",\"children\":[[\"$\",\"div\",null,{\"className\":\"stat-block-num\",\"children\":\"5.0\"}],[\"$\",\"div\",null,{\"className\":\"stat-block-label\",\"children\":\"SOL — agent funding\"}]]}],[\"$\",\"div\",null,{\"className\":\"stat-block\",\"children\":[[\"$\",\"div\",null,{\"className\":\"stat-block-num\",\"children\":\"69,420\"}],[\"$\",\"div\",null,{\"className\":\"stat-block-label\",\"children\":\"KOL trades analyzed\"}]]}],[\"$\",\"div\",null,{\"className\":\"stat-block\",\"children\":[[\"$\",\"div\",null,{\"className\":\"stat-block-num\",\"children\":\"69\"}],[\"$\",\"div\",null,{\"className\":\"stat-block-label\",\"children\":\"CT archetypes classified\"}]]}]]}]]}]\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "1b:[\"$\",\"section\",null,{\"className\":\"lore-section\",\"id\":\"what\",\"children\":[[\"$\",\"div\",null,{\"className\":\"section-header\",\"children\":[[\"$\",\"span\",null,{\"className\":\"section-tag\",\"children\":\"capabilities\"}],[\"$\",\"span\",null,{\"className\":\"section-title\",\"children\":\"what the agent does, day to day\"}]]}],[\"$\",\"div\",null,{\"className\":\"feat-grid\",\"children\":[[\"$\",\"div\",\"0\",{\"className\":\"feat-card\",\"children\":[[\"$\",\"div\",null,{\"className\":\"feat-card-tag\",\"children\":\"trading\"}],[\"$\",\"div\",null,{\"className\":\"feat-card-title\",\"children\":\"KOL wallet surveillance\"}],[\"$\",\"div\",null,{\"className\":\"feat-card-body\",\"children\":\"Indexes 420 known KOL wallets. Logs every trade. Detects entries, rotations, exits. The data feed that makes the rest of the agent possible.\"}]]}],[\"$\",\"div\",\"1\",{\"className\":\"feat-card\",\"children\":[[\"$\",\"div\",null,{\"className\":\"feat-card-tag\",\"children\":\"launch\"}],[\"$\",\"div\",null,{\"className\":\"feat-card-title\",\"children\":\"$$TROLLED on pump.fun\"}],[\"$\",\"div\",null,{\"className\":\"feat-card-body\",\"children\":\"Anti-sniper supply control. Strategic pre-buy to deny clean sniper entry. Distribution shaped to survive the first hour — not optimize the first minute. Migrates to PumpSwap.\"}]]}],[\"$\",\"div\",\"2\",{\"className\":\"feat-card\",\"children\":[[\"$\",\"div\",null,{\"className\":\"feat-card-tag\",\"children\":\"distribution\"}],[\"$\",\"div\",null,{\"className\":\"feat-card-title\",\"children\":\"UNC-playbook airdrop\"}],[\"$\",\"div\",null,{\"className\":\"feat-card-body\",\"children\":\"Snapshot of mutual $TROLL + $TROLLED holders. Loyalty filter, cultural lineage, alignment. Agent's bag pays rent to the community, doesn't dump on it.\"}]]}],[\"$\",\"div\",\"3\",{\"className\":\"feat-card\",\"children\":[[\"$\",\"div\",null,{\"className\":\"feat-card-tag\",\"children\":\"voice\"}],[\"$\",\"div\",null,{\"className\":\"feat-card-title\",\"children\":\"Persona-aware roasts\"}],[\"$\",\"div\",null,{\"className\":\"feat-card-body\",\"children\":\"69 CT archetypes. Persona-weighted. Context-aware. Selective — silent when the joke is weak. The agent's voice on TG and X, not its product.\"}]]}]]}]]}]\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "1c:[\"$\",\"div\",null,{\"className\":\"cta-band\",\"children\":[[\"$\",\"div\",null,{\"className\":\"cta-title\",\"children\":[\"the agent has skin in the game\",[\"$\",\"span\",null,{\"className\":\"blink\",\"children\":\"_\"}]]}],[\"$\",\"div\",null,{\"className\":\"cta-sub\",\"children\":\"$$TROLLED launches on pump.fun. Mutual $TROLL holders get the airdrop.\"}],[\"$\",\"div\",null,{\"className\":\"cta-actions\",\"children\":[[\"$\",\"a\",null,{\"href\":\"#buy\",\"className\":\"h-btn primary\",\"children\":\"▶ Buy $TROLLED\"}],[\"$\",\"a\",null,{\"href\":\"#wallet\",\"className\":\"h-btn\",\"children\":\"View Wallet\"}],[\"$\",\"$L4\",null,{\"href\":\"/meme-studio\",\"className\":\"h-btn\",\"children\":\"Open Meme Studio\"}]]}],[\"$\",\"div\",null,{\"className\":\"cta-tags\",\"children\":[[\"$\",\"span\",null,{\"className\":\"cta-tag\",\"children\":\"Solana\"}],[\"$\",\"span\",null,{\"className\":\"cta-tag\",\"children\":\"pump.fun\"}],[\"$\",\"span\",null,{\"className\":\"cta-tag\",\"children\":\"PumpSwap\"}],[\"$\",\"span\",null,{\"className\":\"cta-tag\",\"children\":\"Anti-sniper\"}],[\"$\",\"span\",null,{\"className\":\"cta-tag\",\"children\":\"UNC playbook\"}],[\"$\",\"span\",null,{\"className\":\"cta-tag\",\"children\":\"$$TROLL · $TROLLED\"}]]}]]}]\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1, "2a:T3256,"])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "\n        .lore-wrap { font-family: var(--font-mono); color: var(--fg-primary); }\n\n        /* HERO */\n        .lore-hero { padding: 32px 0 40px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }\n        .hero-eyebrow { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-meta); margin-bottom: 12px; }\n        .hero-eyebrow span { color: var(--accent-green); }\n        .hero-title { font-size: 28px; line-height: 1.2; color: var(--fg-primary); margin-bottom: 16px; font-weight: 400; }\n        .hero-title em { color: var(--accent-green); font-style: normal; }\n        .hero-body { font-size: 12px; color: var(--fg-dim); line-height: 1.75; max-width: 580px; margin-bottom: 16px; }\n        .hero-body:last-of-type { margin-bottom: 24px; }\n        .hero-body strong { color: var(--accent-green); font-weight: normal; }\n        .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }\n\n        /* BUTTONS */\n        .h-btn {\n          display: inline-flex; align-items: center; gap: 6px;\n          padding: 8px 18px;\n          border: 1px solid var(--border);\n          font-family: var(--font-mono); font-size: 10px;\n          letter-spacing: 0.08em; text-transform: uppercase;\n          color: var(--fg-dim); background: transparent; cursor: pointer;\n          text-decoration: none;\n          transition: color 0.15s, border-color 0.15s, background 0.15s;\n        }\n        .h-btn:hover { color: var(--fg-primary); border-color: var(--fg-meta); }\n        .h-btn.primary {\n          color: var(--accent-green);\n          border-color: var(--accent-green);\n          background: rgba(106, 210, 122, 0.06);\n        }\n        .h-btn.primary:hover { background: rgba(106, 210, 122, 0.12); color: var(--accent-green); }\n\n        /* BUY BOX — prominent CA + ticker + buy block */\n        .buy-box {\n          border: 1px solid rgba(106, 210, 122, 0.4);\n          background: linear-gradient(180deg, rgba(106, 210, 122, 0.08) 0%, rgba(106, 210, 122, 0.02) 100%);\n          padding: 32px;\n          margin-bottom: 40px;\n          position: relative;\n        }\n        .buy-box::before {\n          content: '';\n          position: absolute; top: -1px; left: -1px; right: -1px; height: 1px;\n          background: linear-gradient(90deg, transparent 0%, var(--accent-green) 50%, transparent 100%);\n        }\n        .buy-box-tag {\n          font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;\n          color: var(--accent-green); margin-bottom: 12px;\n          display: flex; align-items: center; gap: 8px;\n        }\n        .buy-box-tag::before {\n          content: '';\n          width: 8px; height: 8px; border-radius: 50%;\n          background: var(--accent-green);\n          animation: blink 1.2s ease-in-out infinite;\n        }\n        .buy-box-ticker {\n          font-size: 56px; line-height: 1;\n          color: var(--accent-green); margin-bottom: 8px;\n          letter-spacing: -0.02em;\n        }\n        .buy-box-name {\n          font-size: 14px; color: var(--fg-dim);\n          margin-bottom: 24px; letter-spacing: 0.04em;\n        }\n\n        .ca-strip {\n          background: var(--bg-base);\n          border: 1px solid var(--border);\n          padding: 14px 16px; margin-bottom: 20px;\n          display: flex; align-items: center; gap: 14px; flex-wrap: wrap;\n        }\n        .ca-label {\n          font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;\n          color: var(--fg-meta); flex-shrink: 0;\n        }\n        .ca-value {\n          font-family: var(--font-mono); font-size: 13px;\n          color: var(--accent-cyan); letter-spacing: 0.02em;\n          flex: 1; min-width: 0; word-break: break-all;\n        }\n        .ca-value.placeholder { color: var(--fg-meta); font-style: italic; }\n        /* v3.37.3 — when CA is published, ca-value displays the real address\n           in the green accent. word-break for long base58 on mobile. */\n        .ca-copy {\n          font-size: 9px; padding: 4px 10px;\n          border: 1px solid var(--border);\n          color: var(--fg-meta); letter-spacing: 0.08em; text-transform: uppercase;\n          cursor: pointer; flex-shrink: 0;\n        }\n        .ca-copy:hover { color: var(--accent-green); border-color: var(--accent-green); }\n\n        .buy-actions { display: flex; gap: 10px; flex-wrap: wrap; }\n        .buy-btn-primary {\n          flex: 1; min-width: 200px;\n          display: inline-flex; align-items: center; justify-content: center; gap: 8px;\n          padding: 16px 28px;\n          border: 1px solid var(--accent-green);\n          background: rgba(106, 210, 122, 0.12);\n          font-family: var(--font-mono); font-size: 14px; font-weight: 500;\n          letter-spacing: 0.1em; text-transform: uppercase;\n          color: var(--accent-green); cursor: pointer; text-decoration: none;\n          transition: background 0.15s;\n        }\n        .buy-btn-primary:hover { background: rgba(106, 210, 122, 0.2); }\n        .buy-btn-secondary {\n          display: inline-flex; align-items: center; justify-content: center; gap: 6px;\n          padding: 16px 20px;\n          border: 1px solid var(--border);\n          font-family: var(--font-mono); font-size: 11px;\n          letter-spacing: 0.08em; text-transform: uppercase;\n          color: var(--fg-dim); background: transparent; text-decoration: none;\n          transition: color 0.15s, border-color 0.15s;\n        }\n        .buy-btn-secondary:hover { color: var(--fg-primary); border-color: var(--fg-meta); }\n        /* v3.37.3 — disabled state for pre-launch (no CA yet). The buttons\n           still render so the page feels complete, but they don't navigate\n           and look obviously inactive. */\n        .buy-btn-primary.disabled,\n        .buy-btn-secondary.disabled {\n          opacity: 0.4;\n          cursor: not-allowed;\n          pointer-events: none;\n        }\n\n        /* SECTIONS */\n        .lore-section { margin-bottom: 40px; }\n        .section-header {\n          display: flex; align-items: center; gap: 8px;\n          margin-bottom: 20px; padding-bottom: 8px;\n          border-bottom: 1px solid var(--border);\n        }\n        .section-tag {\n          font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;\n          color: var(--accent-green); background: rgba(106, 210, 122, 0.08);\n          border: 1px solid rgba(106, 210, 122, 0.2); padding: 2px 8px;\n        }\n        .section-title { font-size: 11px; color: var(--fg-dim); letter-spacing: 0.06em; }\n        .section-body { font-size: 11px; color: var(--fg-dim); line-height: 1.75; max-width: 580px; margin-bottom: 16px; }\n\n        /* ARC DIVIDERS */\n        .arc-divider {\n          display: flex; align-items: center; gap: 14px;\n          margin: 56px 0 32px; color: var(--fg-meta);\n          font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;\n        }\n        .arc-divider::before, .arc-divider::after {\n          content: ''; flex: 1; height: 1px; background: var(--border);\n        }\n        .arc-divider span { color: var(--accent-green); }\n\n        /* TIMELINE */\n        .timeline { display: flex; flex-direction: column; }\n        .tl-item { display: flex; gap: 16px; position: relative; }\n        .tl-item:not(:last-child)::after {\n          content: ''; position: absolute; left: 19px; top: 28px; bottom: 0;\n          width: 1px; background: var(--border);\n        }\n        .tl-marker {\n          width: 40px; height: 22px; flex-shrink: 0;\n          background: var(--bg-chrome); border: 1px solid var(--border);\n          font-size: 9px; color: var(--fg-meta); letter-spacing: 0.06em;\n          display: flex; align-items: center; justify-content: center;\n          margin-top: 2px;\n        }\n        .tl-marker.tl-current { color: var(--accent-green); border-color: rgba(106, 210, 122, 0.3); }\n        .tl-marker.tl-action { color: var(--accent-cyan); border-color: rgba(94, 201, 192, 0.3); }\n        .tl-body { padding-bottom: 20px; }\n        .tl-name { font-size: 11px; color: var(--fg-primary); margin-bottom: 3px; }\n        .tl-name.tl-current { color: var(--accent-green); }\n        .tl-name.tl-action { color: var(--accent-cyan); }\n        .tl-desc { font-size: 10px; color: var(--fg-meta); line-height: 1.6; }\n        .tl-meta { font-size: 9px; color: var(--accent-green); letter-spacing: 0.06em; margin-top: 4px; }\n\n        /* PULLQUOTE */\n        .pullquote {\n          border-left: 2px solid var(--accent-green);\n          padding: 12px 16px;\n          background: rgba(106, 210, 122, 0.04);\n        }\n        .pullquote-text { font-size: 14px; color: var(--accent-green); margin-bottom: 4px; }\n        .pullquote-cite { font-size: 10px; color: var(--fg-meta); }\n\n        /* WALLET CARD */\n        .wallet-card { background: var(--bg-panel); border: 1px solid var(--border); padding: 18px; }\n        .wallet-row {\n          display: flex; justify-content: space-between; align-items: center;\n          padding: 6px 0; border-bottom: 1px solid var(--border); gap: 12px;\n        }\n        .wallet-row:last-child { border: none; }\n        .wallet-label { font-size: 10px; color: var(--fg-meta); letter-spacing: 0.06em; flex-shrink: 0; }\n        .wallet-val { font-size: 11px; color: var(--fg-primary); font-family: var(--font-mono); text-align: right; }\n        .wallet-val.green { color: var(--accent-green); }\n        .wallet-val.cyan { color: var(--accent-cyan); }\n        .wallet-val.amber { color: var(--accent-amber); }\n        .wallet-val.placeholder { color: var(--fg-meta); font-style: italic; }\n        /* v3.37.3 — clickable wallet/CA addresses link to Solscan. word-break\n           keeps long base58 strings from overflowing on narrow screens. */\n        .wallet-val.link {\n          color: var(--accent-green);\n          text-decoration: none;\n          word-break: break-all;\n          transition: filter 120ms ease;\n        }\n        .wallet-val.link:hover {\n          filter: drop-shadow(0 0 6px rgba(106, 210, 122, 0.4));\n          text-decoration: underline;\n        }\n        .wallet-pill {\n          display: inline-block; font-size: 9px; padding: 2px 6px;\n          border: 1px solid var(--border); color: var(--fg-meta);\n          letter-spacing: 0.06em; text-transform: uppercase; margin-left: 8px;\n        }\n\n        /* STATS */\n        .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }\n        .stat-block { background: var(--bg-panel); border: 1px solid var(--border); padding: 14px; }\n        .stat-block-num { font-size: 20px; color: var(--accent-green); margin-bottom: 4px; }\n        .stat-block-label { font-size: 10px; color: var(--fg-meta); letter-spacing: 0.06em; }\n\n        /* CAPABILITIES */\n        .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }\n        .feat-card { background: var(--bg-panel); border: 1px solid var(--border); padding: 16px; }\n        .feat-card-tag {\n          font-size: 9px; color: var(--accent-cyan); letter-spacing: 0.1em;\n          text-transform: uppercase; margin-bottom: 8px;\n        }\n        .feat-card-title { font-size: 11px; color: var(--fg-primary); margin-bottom: 6px; }\n        .feat-card-body { font-size: 10px; color: var(--fg-meta); line-height: 1.65; }\n\n        /* CTA BAND */\n        .cta-band {\n          border: 1px solid var(--border);\n          background: var(--bg-panel);\n          padding: 28px; text-align: center;\n          margin-top: 40px;\n        }\n        .cta-title { font-size: 18px; color: var(--fg-primary); margin-bottom: 8px; }\n        .cta-sub { font-size: 11px; color: var(--fg-dim); margin-bottom: 20px; }\n        .cta-actions {\n          display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;\n        }\n        .cta-tags {\n          margin-top: 16px;\n          display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;\n        }\n        .cta-tag {\n          font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;\n          padding: 3px 10px; border: 1px solid var(--border); color: var(--fg-meta);\n        }\n\n        /* BLINKING CURSOR */\n        @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }\n        .blink { animation: blink 1s step-end infinite; }\n\n        /* MOBILE */\n        @media (max-width: 700px) {\n          .hero-title { font-size: 22px; }\n          .buy-box { padding: 20px; }\n          .buy-box-ticker { font-size: 40px; }\n          .feat-grid { grid-template-columns: 1fr; }\n          .stats-row { grid-template-columns: 1fr; }\n          .hero-btns { flex-direction: column; align-items: stretch; }\n          .buy-actions { flex-direction: column; }\n          .buy-btn-primary { min-width: 0; }\n          .ca-strip { flex-direction: column; align-items: flex-start; }\n          .wallet-row { flex-direction: column; align-items: flex-start; }\n          .wallet-val { text-align: left; }\n        }\n\n        html { scroll-behavior: smooth; }\n      "
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1, "1d:[\"$\",\"style\",null,{\"children\":\"$2a\"}]\n"])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "1e:[\"$\",\"div\",null,{\"className\":\"shell-right\",\"children\":[\"$\",\"aside\",null,{\"className\":\"agent-figure\",\"children\":[[\"$\",\"picture\",null,{\"children\":[[\"$\",\"source\",null,{\"srcSet\":\"/agent-figure-small.jpg\",\"media\":\"(max-width: 1400px)\"}],[\"$\",\"img\",null,{\"src\":\"/agent-figure.jpg\",\"alt\":\"\",\"aria-hidden\":\"true\",\"loading\":\"eager\",\"decoding\":\"async\",\"className\":\"figure-img\"}]]}],[\"$\",\"style\",null,{\"children\":\"\\n        .agent-figure {\\n          width: 380px;\\n          flex-shrink: 0;\\n          position: sticky;\\n          top: 80px;\\n          align-self: flex-start;\\n          height: calc(100vh - 100px);\\n          display: flex;\\n          align-items: flex-end;\\n          justify-content: center;\\n          pointer-events: none;\\n          user-select: none;\\n        }\\n        .figure-img {\\n          width: 100%;\\n          height: auto;\\n          max-height: 100%;\\n          object-fit: contain;\\n          object-position: bottom right;\\n        }\\n\\n        @media (max-width: 1100px) {\\n          .agent-figure { display: none; }\\n        }\\n      \"}]]}]}]\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "26:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"meta\",\"1\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}]]\n22:null\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1,
+      "24:{\"metadata\":[[\"$\",\"title\",\"0\",{\"children\":\"Agent Troll — You've been $Trolled.\"}],[\"$\",\"meta\",\"1\",{\"name\":\"description\",\"content\":\"Autonomous AI that trolls CT.\"}],[\"$\",\"meta\",\"2\",{\"property\":\"og:title\",\"content\":\"Agent Troll — You've been $Trolled.\"}],[\"$\",\"meta\",\"3\",{\"property\":\"og:description\",\"content\":\"Autonomous AI that trolls CT.\"}],[\"$\",\"meta\",\"4\",{\"property\":\"og:image\",\"content\":\"https://agent-troll-ccxymvn4q-dexdev.vercel.app/logo.png\"}],[\"$\",\"meta\",\"5\",{\"property\":\"og:image:width\",\"content\":\"512\"}],[\"$\",\"meta\",\"6\",{\"property\":\"og:image:height\",\"content\":\"512\"}],[\"$\",\"meta\",\"7\",{\"property\":\"og:image:alt\",\"content\":\"Agent Troll\"}],[\"$\",\"meta\",\"8\",{\"property\":\"og:type\",\"content\":\"website\"}],[\"$\",\"meta\",\"9\",{\"name\":\"twitter:card\",\"content\":\"summary\"}],[\"$\",\"meta\",\"10\",{\"name\":\"twitter:title\",\"content\":\"Agent Troll — You've been $Trolled.\"}],[\"$\",\"meta\",\"11\",{\"name\":\"twitter:description\",\"content\":\"Autonomous AI that trolls CT.\"}],[\"$\",\"meta\",\"12\",{\"name\":\"twitter:image\",\"content\":\"https://agent-troll-ccxymvn4q-dexdev.vercel.app/logo.png\"}],[\"$\",\"link\",\"13\",{\"rel\":\"icon\",\"href\":\"/favicon-32.png\",\"sizes\":\"32x32\",\"type\":\"image/png\"}],[\"$\",\"link\",\"14\",{\"rel\":\"icon\",\"href\":\"/favicon.png\",\"sizes\":\"64x64\",\"type\":\"image/png\"}],[\"$\",\"link\",\"15\",{\"rel\":\"icon\",\"href\":\"/logo-small.png\",\"sizes\":\"128x128\",\"type\":\"image/png\"}],[\"$\",\"link\",\"16\",{\"rel\":\"apple-touch-icon\",\"href\":\"/apple-touch-icon.png\"}],[\"$\",\"$L2b\",\"17\",{}]],\"error\":null,\"digest\":\"$undefined\"}\n"
+    ])
+  </script>
+  <script>
+    self.__next_f.push([1, "29:\"$24:metadata\"\n"])
+  </script>
 </body>
+
 </html>
