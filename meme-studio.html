@@ -1,1 +1,432 @@
-No Content: https://agenttroll.lol/meme-studio?_rsc=1mvjl
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meme Studio · Agent Troll</title>
+  <meta name="description" content="Drop Agent Troll-flavored captions on cursed backgrounds. Free, fast, and built for export to your timeline." />
+  <meta property="og:title" content="Meme Studio · Agent Troll" />
+  <meta property="og:description" content="Drop Agent Troll-flavored captions on cursed backgrounds." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="/logo.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/logo.png" />
+  <link rel="stylesheet" href="/_next/static/css/bf844c3397d962b3.css" />
+  <style>
+    .public-header {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; gap: 24px;
+      padding: 12px 28px;
+      background: rgba(0,0,0,.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo-link { display: flex; align-items: center; gap: 10px; flex-shrink: 0; line-height: 0; text-decoration: none; }
+    .logo-img { width: 44px; height: 44px; object-fit: cover; border-radius: 50%; border: 1px solid var(--border); filter: drop-shadow(0 0 10px rgba(106,210,122,.35)); }
+    .logo-text { color: var(--accent-green); font-size: 13px; letter-spacing: 2px; font-weight: 600; }
+    .public-nav { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+    .nav-link {
+      color: var(--fg-meta); text-decoration: none; font-size: 12px; letter-spacing: 2px;
+      padding: 8px 16px; border: 1px solid transparent; transition: all 120ms ease;
+      font-family: var(--font-mono); text-transform: uppercase;
+    }
+    .nav-link:hover { color: var(--accent-green); border-color: var(--border); background: var(--bg-panel); }
+    .nav-link.active { color: var(--accent-green); border-color: var(--accent-green); background: rgba(106,210,122,.08); }
+    .public-socials { display: flex; gap: 4px; align-items: center; padding-left: 16px; margin-left: 4px; border-left: 1px solid var(--border); }
+    .social-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; color: var(--fg-meta);
+      border: 1px solid transparent; transition: all 120ms ease;
+    }
+    .social-icon:hover { color: var(--accent-green); border-color: var(--border); background: var(--bg-panel); filter: drop-shadow(0 0 6px rgba(106,210,122,.4)); }
+    .social-icon svg { width: 16px; height: 16px; }
+
+    .page { min-height: 100vh; background: var(--bg-base); display: flex; flex-direction: column; }
+
+    .container {
+      max-width: 1500px; width: 100%; margin: 0 auto;
+      padding: 32px 28px 60px; flex: 1;
+    }
+    .page-title { color: var(--accent-green); font-size: 28px; margin: 0 0 4px; text-shadow: 0 0 18px rgba(106,210,122,.35); }
+    .page-sub { color: var(--fg-dim); font-size: 13px; margin: 0 0 24px; }
+
+    .studio { display: grid; grid-template-columns: 320px 1fr; gap: 24px; align-items: flex-start; }
+
+    .panel { border: 1px solid var(--border); background: var(--bg-panel); padding: 18px; }
+    .panel h2 { color: var(--accent-green); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .field label { color: var(--fg-meta); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+    .field input[type="text"], .field textarea, .field input[type="number"], .field select {
+      padding: 10px 12px; border: 1px solid var(--border);
+      background: var(--bg-chrome); color: var(--fg-primary);
+      font-family: var(--font-mono); font-size: 12px;
+    }
+    .field input[type="text"]:focus, .field textarea:focus, .field input[type="number"]:focus, .field select:focus { outline: none; border-color: var(--accent-green); }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .bg-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    }
+    .bg-tile {
+      aspect-ratio: 1 / 1; border: 1px solid var(--border);
+      background: var(--bg-chrome) center / cover no-repeat;
+      cursor: pointer; transition: all 120ms ease; position: relative;
+    }
+    .bg-tile:hover { border-color: var(--accent-green); filter: drop-shadow(0 0 6px rgba(106,210,122,.35)); }
+    .bg-tile.active { border-color: var(--accent-green); box-shadow: inset 0 0 0 2px var(--accent-green); }
+    .bg-tile .name {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 4px 6px; background: rgba(0,0,0,.7); color: var(--fg-dim);
+      font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; text-align: center;
+    }
+
+    .canvas-wrap {
+      border: 1px solid var(--border); background: var(--bg-panel);
+      padding: 14px; display: flex; flex-direction: column; gap: 14px; align-items: stretch;
+    }
+    .canvas-frame {
+      background: var(--bg-chrome) center / 24px 24px;
+      background-image:
+        linear-gradient(45deg, rgba(255,255,255,.02) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255,255,255,.02) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(255,255,255,.02) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(255,255,255,.02) 75%);
+      background-position: 0 0, 0 12px, 12px -12px, -12px 0px;
+      padding: 18px; display: flex; align-items: center; justify-content: center;
+      min-height: 300px;
+    }
+    canvas#meme {
+      max-width: 100%; height: auto; display: block;
+      background: #000; border: 1px solid var(--border);
+    }
+    .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 18px; border: 1px solid var(--accent-green);
+      color: var(--accent-green); background: rgba(106,210,122,.06);
+      font-family: var(--font-mono); font-size: 12px; letter-spacing: 2px;
+      text-transform: uppercase; text-decoration: none; cursor: pointer;
+      transition: all 120ms ease;
+    }
+    .btn:hover { background: rgba(106,210,122,.18); filter: drop-shadow(0 0 8px rgba(106,210,122,.4)); }
+    .btn.ghost { border-color: var(--border); color: var(--fg-meta); background: var(--bg-panel); }
+    .btn.ghost:hover { color: var(--accent-green); border-color: var(--accent-green); }
+    .hint { color: var(--fg-meta); font-size: 11px; }
+
+    .public-footer {
+      margin-top: auto; border-top: 1px solid var(--border);
+      background: rgba(0,0,0,.4); padding: 32px 28px 24px;
+    }
+    .footer-inner { max-width: 1700px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .footer-brand { display: flex; align-items: center; gap: 14px; }
+    .footer-name { color: var(--accent-green); font-size: 13px; letter-spacing: 2px; font-weight: 600; }
+    .footer-tagline { color: var(--fg-meta); font-size: 11px; }
+    .footer-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .footer-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; color: var(--fg-meta);
+      border: 1px solid var(--border); background: var(--bg-panel);
+      transition: all 120ms ease; min-width: 180px; text-decoration: none;
+    }
+    .footer-link:hover { color: var(--accent-green); border-color: var(--accent-green); background: rgba(106,210,122,.08); }
+    .footer-icon svg { width: 16px; height: 16px; }
+    .footer-link-text { display: flex; flex-direction: column; gap: 2px; line-height: 1.2; }
+    .footer-link-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
+    .footer-link-handle { font-size: 10px; color: var(--fg-dim); }
+    .footer-meta { max-width: 1700px; margin: 24px auto 0; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: center; color: var(--fg-dim); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+
+    @media (max-width: 1100px) {
+      .studio { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .public-header { gap: 8px; padding: 10px 12px; flex-wrap: wrap; }
+      .nav-link { padding: 6px 8px; font-size: 11px; letter-spacing: 1px; }
+      .public-socials { padding-left: 8px; margin-left: 0; }
+      .social-icon { width: 28px; height: 28px; }
+      .field-row { grid-template-columns: 1fr; }
+      .bg-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body class="scanlines">
+  <div class="page">
+    <header class="public-header">
+      <a class="logo-link" href="/" aria-label="Agent Troll">
+        <img class="logo-img" src="/logo.png" alt="Agent Troll" width="44" height="44" />
+        <span class="logo-text">AGENT TROLL</span>
+      </a>
+      <nav class="public-nav">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/x-trolls">X Trolls</a>
+        <a class="nav-link" href="/airdrop">Airdrop</a>
+        <a class="nav-link active" href="/meme-studio">Meme Studio</a>
+      </nav>
+      <div class="public-socials" role="navigation" aria-label="Social links">
+        <a href="https://x.com/agent_troll007" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Agent Troll on X" title="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://t.me/agent_troll007" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Agent Troll on Telegram" title="Telegram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+        <a href="https://x.com/i/communities/1669782419841617920" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Agent Troll X Community" title="X Community">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1 class="page-title">Meme Studio</h1>
+      <p class="page-sub">Pick a background, drop a top + bottom caption, hit export. Renders locally — nothing leaves your browser.</p>
+
+      <div class="studio">
+        <aside>
+          <div class="panel">
+            <h2>Background</h2>
+            <div class="bg-grid" id="bgGrid"></div>
+          </div>
+          <div class="panel" style="margin-top:16px;">
+            <h2>Captions</h2>
+            <div class="field">
+              <label for="topText">Top text</label>
+              <input id="topText" type="text" maxlength="120" value="WHEN CT SAYS" />
+            </div>
+            <div class="field">
+              <label for="bottomText">Bottom text</label>
+              <input id="bottomText" type="text" maxlength="120" value="\"TRUST ME BRO\"" />
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="fontSize">Font size</label>
+                <input id="fontSize" type="number" min="20" max="120" step="2" value="60" />
+              </div>
+              <div class="field">
+                <label for="fontFamily">Font</label>
+                <select id="fontFamily">
+                  <option value="Impact, &quot;Arial Black&quot;, sans-serif">Impact</option>
+                  <option value="&quot;Arial Black&quot;, Impact, sans-serif">Arial Black</option>
+                  <option value="ui-monospace, &quot;JetBrains Mono&quot;, Menlo, monospace">Mono</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <section class="canvas-wrap">
+          <div class="canvas-frame">
+            <canvas id="meme" width="800" height="800" aria-label="Meme preview"></canvas>
+          </div>
+          <div class="controls">
+            <span class="hint" id="hint">Pick a background to get started.</span>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <button class="btn ghost" id="resetBtn" type="button">Reset text</button>
+              <button class="btn" id="downloadBtn" type="button">Download PNG</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="public-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="/logo.png" alt="" width="36" height="36" style="border-radius:50%;border:1px solid var(--border);" />
+          <div>
+            <div class="footer-name">AGENT TROLL</div>
+            <div class="footer-tagline">trollface ascended · agenttroll.lol</div>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a class="footer-link" href="https://x.com/agent_troll007" target="_blank" rel="noopener noreferrer">
+            <span class="footer-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
+            <span class="footer-link-text"><span class="footer-link-label">X</span><span class="footer-link-handle">@agent_troll007</span></span>
+          </a>
+          <a class="footer-link" href="https://t.me/agent_troll007" target="_blank" rel="noopener noreferrer">
+            <span class="footer-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></span>
+            <span class="footer-link-text"><span class="footer-link-label">Telegram</span><span class="footer-link-handle">t.me/agent_troll007</span></span>
+          </a>
+          <a class="footer-link" href="https://x.com/i/communities/1669782419841617920" target="_blank" rel="noopener noreferrer">
+            <span class="footer-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+            <span class="footer-link-text"><span class="footer-link-label">X Community</span><span class="footer-link-handle">join the herd</span></span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-meta"><span>© Agent Troll · all roasts in good faith</span></div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var BACKGROUNDS = [
+        { id: 'crying_kols',    label: 'Crying KOLs',    src: '/meme-bgs/crying_kols.png' },
+        { id: 'f_you',          label: 'F You',          src: '/meme-bgs/f_you.png' },
+        { id: 'laptop',         label: 'Laptop',         src: '/meme-bgs/laptop.jpg' },
+        { id: 'pointing',       label: 'Pointing',       src: '/meme-bgs/pointing.png' },
+        { id: 'shrug',          label: 'Shrug',          src: '/meme-bgs/shrug.jpg' },
+        { id: 'thumbs_up',      label: 'Thumbs Up',      src: '/meme-bgs/thumbs_up.png' },
+        { id: 'tissue',         label: 'Tissue',         src: '/meme-bgs/tissue.png' },
+        { id: 'tricycle',       label: 'Tricycle',       src: '/meme-bgs/tricycle.png' },
+        { id: 'trolling_motor', label: 'Trolling Motor', src: '/meme-bgs/trolling_motor.png' },
+        { id: 'woosah',         label: 'Woosah',         src: '/meme-bgs/woosah.png' }
+      ];
+
+      var canvas = document.getElementById('meme');
+      var ctx = canvas.getContext('2d');
+      var grid = document.getElementById('bgGrid');
+      var topInput = document.getElementById('topText');
+      var bottomInput = document.getElementById('bottomText');
+      var fontSizeInput = document.getElementById('fontSize');
+      var fontFamilyInput = document.getElementById('fontFamily');
+      var downloadBtn = document.getElementById('downloadBtn');
+      var resetBtn = document.getElementById('resetBtn');
+      var hint = document.getElementById('hint');
+
+      var currentBg = null;
+      var currentImage = null;
+      var defaultTop = topInput.value;
+      var defaultBottom = bottomInput.value;
+
+      BACKGROUNDS.forEach(function (bg) {
+        var tile = document.createElement('div');
+        tile.className = 'bg-tile';
+        tile.setAttribute('role', 'button');
+        tile.setAttribute('tabindex', '0');
+        tile.setAttribute('aria-label', bg.label);
+        tile.style.backgroundImage = 'url(' + bg.src + ')';
+        var name = document.createElement('span');
+        name.className = 'name';
+        name.textContent = bg.label;
+        tile.appendChild(name);
+        tile.addEventListener('click', function () { selectBg(bg, tile); });
+        tile.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectBg(bg, tile); }
+        });
+        grid.appendChild(tile);
+      });
+
+      function selectBg(bg, tile) {
+        currentBg = bg;
+        Array.prototype.forEach.call(grid.querySelectorAll('.bg-tile'), function (t) { t.classList.remove('active'); });
+        if (tile) tile.classList.add('active');
+        hint.textContent = 'Loading ' + bg.label + '\u2026';
+        var img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function () {
+          currentImage = img;
+          var size = 800;
+          var ratio = img.width / img.height;
+          if (ratio >= 1) { canvas.width = size; canvas.height = Math.round(size / ratio); }
+          else { canvas.height = size; canvas.width = Math.round(size * ratio); }
+          render();
+          hint.textContent = 'Loaded ' + bg.label + ' · type your captions and download.';
+        };
+        img.onerror = function () {
+          hint.textContent = 'Could not load ' + bg.label + '. Try another background.';
+        };
+        img.src = bg.src;
+      }
+
+      function wrapLines(text, maxWidth) {
+        var words = String(text || '').split(/\s+/).filter(Boolean);
+        var lines = []; var line = '';
+        for (var i = 0; i < words.length; i++) {
+          var test = line ? line + ' ' + words[i] : words[i];
+          if (ctx.measureText(test).width > maxWidth && line) { lines.push(line); line = words[i]; }
+          else { line = test; }
+        }
+        if (line) lines.push(line);
+        return lines;
+      }
+
+      function drawCaption(text, position) {
+        if (!text) return;
+        var fontSize = parseInt(fontSizeInput.value, 10) || 60;
+        var fontFamily = fontFamilyInput.value;
+        ctx.font = '900 ' + fontSize + 'px ' + fontFamily;
+        ctx.textAlign = 'center';
+        ctx.lineJoin = 'round';
+        ctx.miterLimit = 2;
+
+        var pad = Math.round(canvas.width * 0.04);
+        var maxWidth = canvas.width - pad * 2;
+        var lines = wrapLines(text.toUpperCase(), maxWidth);
+        var lineHeight = Math.round(fontSize * 1.1);
+
+        var startY;
+        if (position === 'top') {
+          ctx.textBaseline = 'top';
+          startY = pad;
+        } else {
+          ctx.textBaseline = 'bottom';
+          startY = canvas.height - pad - (lines.length - 1) * lineHeight;
+        }
+
+        ctx.strokeStyle = '#000';
+        ctx.fillStyle = '#fff';
+        ctx.lineWidth = Math.max(4, Math.round(fontSize * 0.12));
+
+        for (var i = 0; i < lines.length; i++) {
+          var y = startY + i * lineHeight;
+          ctx.strokeText(lines[i], canvas.width / 2, y);
+          ctx.fillText(lines[i], canvas.width / 2, y);
+        }
+      }
+
+      function render() {
+        if (!currentImage) {
+          ctx.fillStyle = '#0a0e0a';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = '#6a7268';
+          ctx.font = '14px ui-monospace, monospace';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('Pick a background to start', canvas.width / 2, canvas.height / 2);
+          return;
+        }
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(currentImage, 0, 0, canvas.width, canvas.height);
+        drawCaption(topInput.value, 'top');
+        drawCaption(bottomInput.value, 'bottom');
+      }
+
+      function safeDownload() {
+        if (!currentImage) {
+          hint.textContent = 'Pick a background first, then export.';
+          return;
+        }
+        try {
+          var link = document.createElement('a');
+          var name = (currentBg && currentBg.id) ? currentBg.id : 'meme';
+          link.download = 'agent-troll-' + name + '-' + Date.now() + '.png';
+          link.href = canvas.toDataURL('image/png');
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } catch (err) {
+          hint.textContent = 'Export blocked by the browser. Try opening this page on the deployed site.';
+        }
+      }
+
+      [topInput, bottomInput, fontSizeInput, fontFamilyInput].forEach(function (el) {
+        el.addEventListener('input', render);
+        el.addEventListener('change', render);
+      });
+      downloadBtn.addEventListener('click', safeDownload);
+      resetBtn.addEventListener('click', function () {
+        topInput.value = defaultTop; bottomInput.value = defaultBottom;
+        fontSizeInput.value = 60; fontFamilyInput.selectedIndex = 0;
+        render();
+      });
+
+      render();
+      // Auto-select the first background tile after a tick.
+      setTimeout(function () {
+        var first = grid.querySelector('.bg-tile');
+        if (first) first.click();
+      }, 0);
+    })();
+  </script>
+</body>
+</html>
